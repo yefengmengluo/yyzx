@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangku.mapper.MenuGroupMapper" >
+  <resultMap id="BaseResultMap" type="com.wangku.entity.MenuGroup" >
+    <id column="group_id" property="groupId" jdbcType="INTEGER" />
+    <result column="groupName" property="groupname" jdbcType="VARCHAR" />
+    <result column="addTime" property="addtime" jdbcType="TIMESTAMP" />
+    <result column="modifyTime" property="modifytime" jdbcType="TIMESTAMP" />
+    <result column="groupOrder" property="grouporder" jdbcType="INTEGER" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="flagOn" property="flagon" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    group_id, groupName, addTime, modifyTime, groupOrder, comment, flagOn
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wangku.entity.MenuGroupExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_menu_group
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_menu_group
+    where group_id = #{groupId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_menu_group
+    where group_id = #{groupId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.wangku.entity.MenuGroupExample" >
+    delete from sys_menu_group
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.wangku.entity.MenuGroup" >
+    insert into sys_menu_group (group_id, groupName, addTime, 
+      modifyTime, groupOrder, comment, 
+      flagOn)
+    values (#{groupId,jdbcType=INTEGER}, #{groupname,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, 
+      #{modifytime,jdbcType=TIMESTAMP}, #{grouporder,jdbcType=INTEGER}, #{comment,jdbcType=VARCHAR}, 
+      #{flagon,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wangku.entity.MenuGroup" >
+    insert into sys_menu_group
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="groupId != null" >
+        group_id,
+      </if>
+      <if test="groupname != null" >
+        groupName,
+      </if>
+      <if test="addtime != null" >
+        addTime,
+      </if>
+      <if test="modifytime != null" >
+        modifyTime,
+      </if>
+      <if test="grouporder != null" >
+        groupOrder,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+      <if test="flagon != null" >
+        flagOn,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="groupId != null" >
+        #{groupId,jdbcType=INTEGER},
+      </if>
+      <if test="groupname != null" >
+        #{groupname,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifytime != null" >
+        #{modifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="grouporder != null" >
+        #{grouporder,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="flagon != null" >
+        #{flagon,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.wangku.entity.MenuGroupExample" resultType="java.lang.Integer" >
+    select count(*) from sys_menu_group
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_menu_group
+    <set >
+      <if test="record.groupId != null" >
+        group_id = #{record.groupId,jdbcType=INTEGER},
+      </if>
+      <if test="record.groupname != null" >
+        groupName = #{record.groupname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addtime != null" >
+        addTime = #{record.addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifytime != null" >
+        modifyTime = #{record.modifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.grouporder != null" >
+        groupOrder = #{record.grouporder,jdbcType=INTEGER},
+      </if>
+      <if test="record.comment != null" >
+        comment = #{record.comment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.flagon != null" >
+        flagOn = #{record.flagon,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_menu_group
+    set group_id = #{record.groupId,jdbcType=INTEGER},
+      groupName = #{record.groupname,jdbcType=VARCHAR},
+      addTime = #{record.addtime,jdbcType=TIMESTAMP},
+      modifyTime = #{record.modifytime,jdbcType=TIMESTAMP},
+      groupOrder = #{record.grouporder,jdbcType=INTEGER},
+      comment = #{record.comment,jdbcType=VARCHAR},
+      flagOn = #{record.flagon,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangku.entity.MenuGroup" >
+    update sys_menu_group
+    <set >
+      <if test="groupname != null" >
+        groupName = #{groupname,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        addTime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifytime != null" >
+        modifyTime = #{modifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="grouporder != null" >
+        groupOrder = #{grouporder,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="flagon != null" >
+        flagOn = #{flagon,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where group_id = #{groupId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangku.entity.MenuGroup" >
+    update sys_menu_group
+    set groupName = #{groupname,jdbcType=VARCHAR},
+      addTime = #{addtime,jdbcType=TIMESTAMP},
+      modifyTime = #{modifytime,jdbcType=TIMESTAMP},
+      groupOrder = #{grouporder,jdbcType=INTEGER},
+      comment = #{comment,jdbcType=VARCHAR},
+      flagOn = #{flagon,jdbcType=VARCHAR}
+    where group_id = #{groupId,jdbcType=INTEGER}
+  </update>
+</mapper>

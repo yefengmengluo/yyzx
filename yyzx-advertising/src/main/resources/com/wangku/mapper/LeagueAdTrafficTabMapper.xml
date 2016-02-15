@@ -1,0 +1,690 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangku.mapper.LeagueAdTrafficTabMapper" >
+  <resultMap id="BaseResultMap" type="com.wangku.entity.LeagueAdTrafficTab" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="ad_id" property="adId" jdbcType="BIGINT" />
+    <result column="ad_type" property="adType" jdbcType="VARCHAR" />
+    <result column="site_id" property="siteId" jdbcType="BIGINT" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="visit_time" property="visitTime" jdbcType="TIMESTAMP" />
+    <result column="yyzx_account_id" property="yyzxAccountId" jdbcType="BIGINT" />
+    <result column="plw_member" property="plwMember" jdbcType="VARCHAR" />
+    <result column="del_flag" property="delFlag" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, ad_id, ad_type, site_id, ip, area, visit_time, yyzx_account_id, plw_member, del_flag, 
+    update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wangku.entity.LeagueAdTrafficTabExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from league_ad_traffic_tab
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from league_ad_traffic_tab
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from league_ad_traffic_tab
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.wangku.entity.LeagueAdTrafficTabExample" >
+    delete from league_ad_traffic_tab
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.wangku.entity.LeagueAdTrafficTab" >
+    insert into league_ad_traffic_tab (id, ad_id, ad_type, 
+      site_id, ip, area, visit_time, 
+      yyzx_account_id, plw_member, del_flag, 
+      update_time)
+    values (#{id,jdbcType=BIGINT}, #{adId,jdbcType=BIGINT}, #{adType,jdbcType=VARCHAR}, 
+      #{siteId,jdbcType=BIGINT}, #{ip,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, #{visitTime,jdbcType=TIMESTAMP}, 
+      #{yyzxAccountId,jdbcType=BIGINT}, #{plwMember,jdbcType=VARCHAR}, #{delFlag,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wangku.entity.LeagueAdTrafficTab" >
+    insert into league_ad_traffic_tab
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="adId != null" >
+        ad_id,
+      </if>
+      <if test="adType != null" >
+        ad_type,
+      </if>
+      <if test="siteId != null" >
+        site_id,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="visitTime != null" >
+        visit_time,
+      </if>
+      <if test="yyzxAccountId != null" >
+        yyzx_account_id,
+      </if>
+      <if test="plwMember != null" >
+        plw_member,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="adId != null" >
+        #{adId,jdbcType=BIGINT},
+      </if>
+      <if test="adType != null" >
+        #{adType,jdbcType=VARCHAR},
+      </if>
+      <if test="siteId != null" >
+        #{siteId,jdbcType=BIGINT},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="visitTime != null" >
+        #{visitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="yyzxAccountId != null" >
+        #{yyzxAccountId,jdbcType=BIGINT},
+      </if>
+      <if test="plwMember != null" >
+        #{plwMember,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.wangku.entity.LeagueAdTrafficTabExample" resultType="java.lang.Integer" >
+    select count(*) from league_ad_traffic_tab
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update league_ad_traffic_tab
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.adId != null" >
+        ad_id = #{record.adId,jdbcType=BIGINT},
+      </if>
+      <if test="record.adType != null" >
+        ad_type = #{record.adType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.siteId != null" >
+        site_id = #{record.siteId,jdbcType=BIGINT},
+      </if>
+      <if test="record.ip != null" >
+        ip = #{record.ip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.area != null" >
+        area = #{record.area,jdbcType=VARCHAR},
+      </if>
+      <if test="record.visitTime != null" >
+        visit_time = #{record.visitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.yyzxAccountId != null" >
+        yyzx_account_id = #{record.yyzxAccountId,jdbcType=BIGINT},
+      </if>
+      <if test="record.plwMember != null" >
+        plw_member = #{record.plwMember,jdbcType=VARCHAR},
+      </if>
+      <if test="record.delFlag != null" >
+        del_flag = #{record.delFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update league_ad_traffic_tab
+    set id = #{record.id,jdbcType=BIGINT},
+      ad_id = #{record.adId,jdbcType=BIGINT},
+      ad_type = #{record.adType,jdbcType=VARCHAR},
+      site_id = #{record.siteId,jdbcType=BIGINT},
+      ip = #{record.ip,jdbcType=VARCHAR},
+      area = #{record.area,jdbcType=VARCHAR},
+      visit_time = #{record.visitTime,jdbcType=TIMESTAMP},
+      yyzx_account_id = #{record.yyzxAccountId,jdbcType=BIGINT},
+      plw_member = #{record.plwMember,jdbcType=VARCHAR},
+      del_flag = #{record.delFlag,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangku.entity.LeagueAdTrafficTab" >
+    update league_ad_traffic_tab
+    <set >
+      <if test="adId != null" >
+        ad_id = #{adId,jdbcType=BIGINT},
+      </if>
+      <if test="adType != null" >
+        ad_type = #{adType,jdbcType=VARCHAR},
+      </if>
+      <if test="siteId != null" >
+        site_id = #{siteId,jdbcType=BIGINT},
+      </if>
+      <if test="ip != null" >
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="visitTime != null" >
+        visit_time = #{visitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="yyzxAccountId != null" >
+        yyzx_account_id = #{yyzxAccountId,jdbcType=BIGINT},
+      </if>
+      <if test="plwMember != null" >
+        plw_member = #{plwMember,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangku.entity.LeagueAdTrafficTab" >
+    update league_ad_traffic_tab
+    set ad_id = #{adId,jdbcType=BIGINT},
+      ad_type = #{adType,jdbcType=VARCHAR},
+      site_id = #{siteId,jdbcType=BIGINT},
+      ip = #{ip,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      visit_time = #{visitTime,jdbcType=TIMESTAMP},
+      yyzx_account_id = #{yyzxAccountId,jdbcType=BIGINT},
+      plw_member = #{plwMember,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  
+  
+  
+  <!-- 自定义SQL -->
+
+	<!-- 条件分页查询流量记录列表 -->
+	<select id="queryAdTrafficByKeywordPaged" resultType="com.wangku.entity.LeagueAdTrafficTab">
+		select ad_id adId,ip, area,count(*) visitNum,max(visit_time) visitTime 
+		from league_ad_traffic_tab 
+		where ad_id=#{adId,jdbcType=BIGINT} and del_flag = 0
+		<if test="beginDate != null">
+			and   DATE_FORMAT(visit_time, '%Y-%m-%d')  >= DATE_FORMAT(#{beginDate}, '%Y-%m-%d')
+		</if>
+		<if test="endDate != null">
+			and  DATE_FORMAT(#{endDate}, '%Y-%m-%d')>= DATE_FORMAT(visit_time, '%Y-%m-%d')  
+		</if>
+		group by ad_id,ip
+		ORDER BY visitTime DESC
+		limit #{offsetValue,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+	</select>
+
+	<!-- 条件分页查询流量记录的记录数 -->
+	<select id="queryAdTrafficByKeywordCount" resultType="java.lang.Integer">
+		select count(distinct ip) FROM league_ad_traffic_tab 
+			where ad_id=#{adId,jdbcType=BIGINT} and del_flag = 0
+		<if test="beginDate != null">
+			and   DATE_FORMAT(visit_time, '%Y-%m-%d')  >= DATE_FORMAT(#{beginDate}, '%Y-%m-%d')
+		</if>
+		<if test="endDate != null">
+			and  DATE_FORMAT(#{endDate}, '%Y-%m-%d')>= DATE_FORMAT(visit_time, '%Y-%m-%d')  
+		</if>
+		
+	</select>
+	<!-- 统计各地区某时间段流量分布情况 -->
+	<select id="queryAdTrafficArea" resultType="com.wangku.entity.LeagueAdTrafficTab">
+		select area area,count(*) visitNum 
+		from league_ad_traffic_tab 
+		where ad_id=#{adId,jdbcType=BIGINT} and del_flag = 0
+		<if test="beginDate != null">
+			and   DATE_FORMAT(visit_time, '%Y-%m-%d')  >= DATE_FORMAT(#{beginDate}, '%Y-%m-%d')
+		</if>
+		<if test="endDate != null">
+			and  DATE_FORMAT(#{endDate}, '%Y-%m-%d')>= DATE_FORMAT(visit_time, '%Y-%m-%d')  
+		</if>
+		group by ad_id,area
+		limit 0,9
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	<!-- 自定义SQL -->
+  <!-- 广告位流量统计列表 -->
+  <select id="queryTrafficCount_advSpace_list" resultType="com.wangku.entity.AdTrafficModel">
+  	select z.advType,z.typeName,z.advSize,z.sizeCode,z.visitCount from (
+	  	(select
+	  		max(s.type_id) typeId,
+	  		0 advType,<!-- 图片广告 -->
+	  		max(s.type_name) typeName,
+	  		max(s.adv_size) advSize,
+	  		s.size_code sizeCode,
+	  		count(atr1.id) visitCount 
+	  	from league_size s 
+		left join league_adv_info info on s.id = info.size_id
+		left join (select * from league_ad_traffic_tab where del_flag = 0 and ad_type = 0) atr1 on info.id = atr1.ad_id  
+		group by s.size_code)
+	
+	union all
+	
+		(select
+			0 typeId,
+			1 advType,
+	  		'文字广告' typeName,
+	  		"--" advSize,
+	  		"" sizeCode,
+	  		count(atr2.id) visitCount
+	  	from (select * from league_ad_traffic_tab where del_flag = 0 and ad_type = 1) atr2 
+	  	<!-- 文字广告 -->)
+	) z
+	order by z.advType,z.typeId,z.advSize
+	limit #{offsetValue},#{pageSize}
+  
+  </select>
+  <!-- 查询广告位的个数 -->
+  <select id="queryTrafficCount_advSpace_count" resultType="java.lang.Integer">
+  	select 
+  	(count(DISTINCT size_code) + 1)
+  	from league_size  
+  </select>
+  <!-- 获取所有广告位的流量 -->
+  <select id="getAllAdvSpaceTotalFlow" resultType="java.lang.Integer">
+  	<!-- select 
+  	count(*)
+  	from league_ad_traffic_tab where del_flag = 0 -->
+  	
+  	select count(*) from (
+
+		select  att.id 
+  		from league_adv_info ai
+		join league_ad_traffic_tab att on ai.id = att.ad_id
+		where att.del_flag = 0 and att.ad_type = 0
+
+		UNION all
+
+		select att2.id  
+  		from league_adv_word aw
+		join league_ad_traffic_tab att2 on aw.id = att2.ad_id
+		where att2.del_flag = 0 and att2.ad_type = 1
+	) aa
+  </select>
+  
+  
+  <!-- 自己手动生成的resultMap -->
+  <resultMap type="com.wangku.entity.AdvSpaceTrafficCountModel" id="BaseAdvTrafficMap">
+	<id column="industryId" property="industryId" jdbcType="BIGINT" />
+	<result column="industryName" property="industryName" jdbcType="VARCHAR" />
+	<result column="advAllTrafficCount" property="advAllTrafficCount" jdbcType="INTEGER" />
+	<collection property="trafficModel" ofType="com.wangku.entity.AdvTrafficCountModel">
+	    <result column="id" property="id" jdbcType="BIGINT" />
+	    <result column="advName" property="advName" jdbcType="VARCHAR" />
+	    <result column="userName" property="userName" jdbcType="VARCHAR" />
+	    <result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+	    <result column="advOneTrafficCount" property="advOneTrafficCount" jdbcType="INTEGER" />
+	    <result column="startTime" property="startTime" jdbcType="TIMESTAMP" />
+		<result column="endTime" property="endTime" jdbcType="TIMESTAMP" />
+	</collection>
+ </resultMap>
+ <!-- 指定广告位下的广告流量统计(封装好的) -->
+
+ <select id="queryTrafficCountBySizeCode" resultMap="BaseAdvTrafficMap">
+ 	select 
+  	s.industry_id industryId,
+  	max(s.industry_name) industryName,
+  	0 advAllTrafficCount,
+  	info.id,
+  	max(info.adv_name) advName,
+  	max(info.create_time) createTime,
+  	max(info.start_time) startTime,
+  	max(info.end_time) endTime,
+  	max(user.account) userName,
+  	count(atr.id) advOneTrafficCount
+  	from (select * from league_size where size_code = #{sizeCode}
+  	
+  	<if test="industryId != 0" >
+        and industry_id = #{industryId}
+    </if>
+  	
+  	) s 
+	join league_adv_info info on s.id = info.size_id
+	left join (select * from league_ad_traffic_tab where del_flag = 0) atr on info.id = atr.ad_id
+	left join vote_user user on atr.yyzx_account_id = user.user_id
+	where 
+	<if test="keyWord != null" >
+        user.account like CONCAT(CONCAT('%', #{keyWord}), '%') and 
+    </if> 
+    info.on_flag in (0,2)
+	group by s.industry_id,info.id
+	ORDER BY s.industry_id,startTime desc
+ </select>
+ 
+ <select id="queryTrafficCountBySizeCode2" resultMap="BaseAdvTrafficMap">
+ 	select 
+  	s.industry_id industryId,
+  	max(s.industry_name) industryName,
+  	0 advAllTrafficCount,
+  	info.id,
+  	max(info.adv_name) advName,
+  	max(info.create_time) createTime,
+  	max(info.start_time) startTime,
+  	max(info.end_time) endTime,
+  	max(user.account) userName,
+  	count(atr.id) advOneTrafficCount
+  	from (select * from league_size where size_code = #{sizeCode}
+  	
+  	<if test="industryId != 0" >
+        and industry_id = #{industryId}
+    </if>
+  	
+  	) s 
+	join league_adv_info info on s.id = info.size_id
+	left join (select * from league_ad_traffic_tab where del_flag = 0
+	<if test="selectDate != -1" >
+       and DATE_FORMAT(visit_time,"%Y-%m-%d %H:%i:%s") 
+       between DATE_FORMAT(#{beginDate},"%Y-%m-%d %H:%i:%s") and DATE_FORMAT(#{endDate},"%Y-%m-%d %H:%i:%s")
+    </if>
+	
+	) atr on info.id = atr.ad_id
+	left join vote_user user on atr.yyzx_account_id = user.user_id
+	where 
+	<if test="keyWord != null" >
+        user.account like CONCAT(CONCAT('%', #{keyWord}), '%') and 
+    </if>
+    info.on_flag in (0,2)
+	group by s.industry_id,info.id
+	ORDER BY s.industry_id,startTime desc
+ </select>
+ <!-- 文字广告流量统计 -->
+ <select id="queryWordTrafficCountBySizeCode" resultMap="BaseAdvTrafficMap">
+ 	select 
+	  	p.id industryId,
+	  	max(p.param_name) industryName,
+	  	0 advAllTrafficCount,
+	  	word.id,
+	  	max(word.title) advName,
+	  	max(word.create_time) createTime,
+	  	max(word.start_time) startTime,
+	  	max(word.end_time) endTime,
+	  	max(user.account) userName,
+	  	count(atr.id) advOneTrafficCount
+  	from (select * from league_pram 
+  	
+  	<if test="industryId != 0" >
+        and id = #{industryId}
+    </if>
+  	
+  	) p 
+	join league_adv_word word on p.id = word.industry_id
+	left join (select * from league_ad_traffic_tab where del_flag = 0) atr on word.id = atr.ad_id
+	left join vote_user user on atr.yyzx_account_id = user.user_id
+	<![CDATA[
+	where DATE_FORMAT(word.start_time,"%Y-%m-%d %H:%i:%s") <= DATE_FORMAT(SYSDATE(),"%Y-%m-%d %H:%i:%s")
+	]]>
+	<if test="keyWord != null" >
+        and user.account like CONCAT(CONCAT('%', #{keyWord}), '%')
+    </if> 
+	group by p.id,word.id
+	ORDER BY p.id,count(atr.id) desc
+ </select>
+ 
+ <select id="queryWordTrafficCountBySizeCode2" resultMap="BaseAdvTrafficMap">
+ 	select 
+	  	p.id industryId,
+	  	max(p.param_name) industryName,
+	  	0 advAllTrafficCount,
+	  	word.id,
+	  	max(word.title) advName,
+	  	max(word.create_time) createTime,
+	  	max(word.start_time) startTime,
+	  	max(word.end_time) endTime,
+	  	max(user.account) userName,
+	  	count(atr.id) advOneTrafficCount
+  	from (select * from league_pram 
+  	
+  	<if test="industryId != 0" >
+        and id = #{industryId}
+    </if>
+  	
+  	) p 
+	join league_adv_word word on p.id = word.industry_id
+	left join (select * from league_ad_traffic_tab where del_flag = 0
+	<if test="selectDate != -1" >
+       and DATE_FORMAT(visit_time,"%Y-%m-%d %H:%i:%s") 
+       between DATE_FORMAT(#{beginDate},"%Y-%m-%d %H:%i:%s") and DATE_FORMAT(#{endDate},"%Y-%m-%d %H:%i:%s")
+    </if> 
+	
+	) atr on word.id = atr.ad_id
+	left join vote_user user on atr.yyzx_account_id = user.user_id
+	<![CDATA[
+	where DATE_FORMAT(word.start_time,"%Y-%m-%d %H:%i:%s") <= DATE_FORMAT(SYSDATE(),"%Y-%m-%d %H:%i:%s")
+	]]>
+	<if test="keyWord != null" >
+        and user.account like CONCAT(CONCAT('%', #{keyWord}), '%')
+    </if>
+     
+	group by p.id,word.id
+	ORDER BY p.id,count(atr.id) desc
+ </select>
+ 
+ 
+ <!-- 今天的图片广告流量统计，根据时间段 -->
+ <select id="queryChartNum" resultType="java.lang.Integer">
+ 
+ 	select count(*) 
+	from (select * from league_size where size_code = #{sizeCode} 
+	
+	<if test="industryId != 0" >
+        and industry_id = #{industryId}
+    </if>
+	) s 
+	join league_adv_info info on s.id = info.size_id
+	join (select * from league_ad_traffic_tab where del_flag = 0) atr on info.id = atr.ad_id
+	<![CDATA[
+	where (date_format(visit_time,'%Y-%m-%d %H:%i:%s') 
+			BETWEEN date_format(#{beginDate},'%Y-%m-%d %H:%i:%s')
+			and date_format(#{endDate},'%Y-%m-%d %H:%i:%s')) 
+		and date_format(visit_time,'%Y-%m-%d') = date_format(#{beginDate},'%Y-%m-%d')
+ 	]]>
+ </select>
+ 
+ <!-- 根据每天分组查询图片广告流量 -->
+ <select id="queryChartNumByDayGroup" resultType="com.wangku.entity.DateGroupCount">
+ 
+ 	select  date_format(visit_time,'%Y-%m-%d') dateStr,count(*) num
+	from (select * from league_size where size_code = #{sizeCode} 
+	<if test="industryId != 0" >
+        and industry_id = #{industryId}
+    </if>
+	) s 
+	join league_adv_info info on s.id = info.size_id
+	join (select * from league_ad_traffic_tab where del_flag = 0) atr on info.id = atr.ad_id
+	
+	<![CDATA[
+	where date_format(visit_time,'%Y-%m-%d') >= date_format(#{beginDate},'%Y-%m-%d')
+	GROUP BY date_format(visit_time,'%Y-%m-%d')
+ 	]]>
+ </select>
+ 
+ 
+ <!-- 今天的文字广告流量统计，根据时间段 -->
+ <select id="queryWordChartNum" resultType="java.lang.Integer">
+ 
+ 	select count(*) 
+	from (select * from league_pram 
+  	<if test="industryId != 0" >
+        where id = #{industryId}
+    </if>
+  	) p 
+	join league_adv_word word on p.id = word.industry_id
+	join (select * from league_ad_traffic_tab where del_flag = 0) atr on word.id = atr.ad_id
+	<![CDATA[
+	where (date_format(visit_time,'%Y-%m-%d %H:%i:%s') 
+			BETWEEN date_format(#{beginDate},'%Y-%m-%d %H:%i:%s')
+			and date_format(#{endDate},'%Y-%m-%d %H:%i:%s')) 
+		and date_format(visit_time,'%Y-%m-%d') = date_format(#{beginDate},'%Y-%m-%d')
+ 	]]>
+ </select>
+ <!-- 根据每天分组查询文字广告流量 -->
+ <select id="queryWordChartNumByDayGroup" resultType="com.wangku.entity.DateGroupCount">
+ 
+ 	select  date_format(visit_time,'%Y-%m-%d') dateStr,count(*) num
+	from (select * from league_pram 
+  	<if test="industryId != 0" >
+        where id = #{industryId}
+    </if>
+  	) p 
+	join league_adv_word word on p.id = word.industry_id
+	join (select * from league_ad_traffic_tab where del_flag = 0) atr on word.id = atr.ad_id
+	
+	<![CDATA[
+	where date_format(visit_time,'%Y-%m-%d') >= date_format(#{beginDate},'%Y-%m-%d')
+	GROUP BY date_format(visit_time,'%Y-%m-%d')
+ 	]]>
+ </select>
+ <!-- 根据编码查询图片广告流量总数 -->
+ <select id="queryAllTrafficCountBySizeCode" resultType="java.lang.Integer">
+ 	select<!-- 图片广告 -->
+	  	count(atr1.id)
+	  	from (select * from league_size where size_code = #{sizeCode}) s 
+		join league_adv_info info on s.id = info.size_id
+		join (select * from league_ad_traffic_tab where del_flag = 0) atr1 on info.id = atr1.ad_id
+ </select>
+ 
+ <select id="queryAllTrafficCountBySizeCode2" resultType="java.lang.Integer">
+ 	select<!-- 图片广告 -->
+	  	count(atr1.id)
+	  	from (select * from league_size where size_code = #{sizeCode}) s 
+		join league_adv_info info on s.id = info.size_id
+		join (select * from league_ad_traffic_tab where del_flag = 0
+		<if test="selectDate != -1" >
+       and DATE_FORMAT(visit_time,"%Y-%m-%d %H:%i:%s") 
+       between DATE_FORMAT(#{beginDate},"%Y-%m-%d %H:%i:%s") and DATE_FORMAT(#{endDate},"%Y-%m-%d %H:%i:%s")
+    </if> 
+		
+		) atr1 on info.id = atr1.ad_id
+ </select>
+ <!-- 查询文字广告流量总数 -->
+ <select id="queryWordAllTrafficCountBySizeCode" resultType="java.lang.Integer">
+ 	select count(*) from league_ad_traffic_tab where ad_type = 1 and del_flag = 0;<!-- 1：文字广告流量数据 -->
+ </select>
+ 
+ <select id="queryWordAllTrafficCountBySizeCode2" resultType="java.lang.Integer">
+ 	select count(*) from league_ad_traffic_tab 
+ 	where ad_type = 1 and del_flag = 0
+ 	<if test="selectDate != -1" >
+       and DATE_FORMAT(visit_time,"%Y-%m-%d %H:%i:%s") 
+       between DATE_FORMAT(#{beginDate},"%Y-%m-%d %H:%i:%s") and DATE_FORMAT(#{endDate},"%Y-%m-%d %H:%i:%s")
+    </if> 
+ 	;<!-- 1：文字广告流量数据 -->
+ </select>
+  
+</mapper>

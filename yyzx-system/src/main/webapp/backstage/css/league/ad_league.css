@@ -1,0 +1,74 @@
+/*广告联盟公共样式*/
+body,ol,ul,h1,h2,h3,h4,h5,h6,p,th,td,dl,dd,form,fieldset,legend,input,textarea,select{margin:0;padding:0}
+a{text-decoration:none}
+a:hover{color:#F08418;}
+em{font-style:normal}
+li{list-style:none}
+img{border:0;vertical-align:middle}
+p{word-wrap:break-word;}
+.cls{clear:both;}
+.clear{clear:both;content:"";display:table;}
+.clearfix{zoom:1;}
+.clearfix:after{ content:"."; display:block; height:0; clear:both; overflow:hidden; visibility:visible}
+input,textarea,select,button {outline:none;}
+.comMt12{ margin-top:12px;}
+#t1124-ind-full-column,#t1124-ind-full-column1{ height:60px; overflow:hidden;}
+
+/*顶部通栏 1000*180*/
+.ad_flex_wrap{margin:12px auto 0; width:100%;  overflow:hidden;position:relative;}
+.ad_flex_con{width:100%; height:40px; overflow:hidden;}
+.ad_flex_close{ z-index:2; position:absolute; right:10px; top:10px; display:block; width:18px; height:18px;background:url(../../images/league/ad_close.png) no-repeat 0 0;}
+.ad_1000x40{ width:1000px; height:0; z-index:1; overflow:hidden; }
+.ad_1000x40 img{ display:block; width:100%; height:40px;}
+.ad_1000x180{ width:1000px; height:40px; overflow:hidden; }
+.ad_1000x180 img{ display:block; width:100%; height:180px;}
+/*宽屏*/
+.ad_1190x40{ width:100%; height:0; z-index:1; overflow:hidden; }
+.ad_1190x40 img{ display:block; width:100%; height:40px;}
+.ad_1190x400{ width:100%; height:40px; overflow:hidden; }
+.ad_1190x400 img{ display:block; width:100%; height:400px;}
+
+/*首页顶部文字广告*/
+.ad_ind_text{padding:0;}
+.ad_ind_text li{height:28px;line-height:28px;overflow:hidden;text-overflow: ellipsis;white-space: nowrap;}
+/*通栏 1000*90*/
+.fullAd-1000X90-con{width:1000px;overflow:hidden;}
+.fullAd-1000X90-con li{ margin-top:12px;}
+.fullAd-1000x90-con img{ display:block; width:100%; height:90px;}
+
+/*资讯列表右侧 300*80*/
+.artListAd-300X80-con{margin-bottom:12px; width:300px;  overflow:hidden;}
+.artListAd-300X80-con li{margin-top:12px; border:1px solid #e2e2e2; }
+.t1000-art-list-right .t1000-article-adver-h80-con{ height:auto;width:300px; }
+.artListAd-300X80-con a,.artListAd-300X80-con img{ display:block; width:298px; height:80px; }
+
+/*资讯详情页文章插入广告 300*250*/
+#artDetailAd-300X250-wrap{margin:8px 15px 10px 0;}
+.ad_300x250{ width:300px; height:250px;overflow:hidden;}
+.ad_300x250 a,.ad_300x250 img{ display:block; width:300px; height:250px;}
+
+/*列表页图片广告*/
+.listComAd-188X218-con li{ margin-top:12px; width:188px; height:218px; border:1px solid #d0d0d0;overflow:hidden;}
+.listComAd-188X218-con a,.listComAd-188X218-con img{ display:block; width:100%; height:218px;}
+
+
+/*文字标红*/
+.red a{ color:#dc3720;}
+
+/*宽屏通栏 1190*60*/
+#fullAd-1190X60,#fullAd-1190X60-1,#fullAd-1190X60-2,#fullAd-1190X60-3,#fullAd-1190X116,#fullAd-1190X116-1,#fullAd-1190X116-2,#fullAd-1190X116-3,#fullAd-1000X90,#fullAd-1000X90-1,#fullAd-1000X90-2,#fullAd-1000X90-3{ margin:0 auto;}
+.fullAd-1190X60-con{width:1190px; overflow:hidden;}
+.fullAd-1190X60-con li{ margin-top:12px;} 
+.fullAd-1190X60-con img{ display:block; width:100%; height:60px;}
+/*宽屏通栏 1190*116*/
+.fullAd-1190X116-con{width:1190px;overflow:hidden;}
+.fullAd-1190X116-con li{ margin-top:12px;}
+.fullAd-1190X116-con img{ display:block; width:100%; height:116px;}
+/*宽屏图片列表 290*80*/
+.fullAd-290X80-con{width:1190px;overflow:hidden;}
+.fullAd-290X80-con .ad_290x80 { width:1280px;}
+.fullAd-290X80-con li{ float:left; margin:10px 10px 0 0;}
+.fullAd-290X80-con img{ display:block; width:290px; height:80px;}
+
+/*0908*/
+#div2 .advertising-common-single-html,.ad_flex_con .advertising-common-single-html,.fullAd-1000X90-con .advertising-common-single-html,.indTextListAd-con .advertising-common-single-html,.fullAd-1190X60-con .advertising-common-single-html,.fullAd-1190X116-con .advertising-common-single-html,.artListAd-300X80-con .advertising-common-single-html,.artDetailAd-300X250-con .advertising-common-single-html,.listComAd-188X218-con .advertising-common-single-html,.fullAd-290X80-con .advertising-common-single-html{ padding:0;}

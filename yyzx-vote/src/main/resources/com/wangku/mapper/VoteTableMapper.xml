@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangku.mapper.VoteTableMapper" >
+  <resultMap id="BaseResultMap" type="com.wangku.entity.VoteTable" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="v_subject" property="vSubject" jdbcType="VARCHAR" />
+    <result column="v_summary" property="vSummary" jdbcType="VARCHAR" />
+    <result column="v_forever" property="vForever" jdbcType="TINYINT" />
+    <result column="begin_time" property="beginTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="data_status" property="dataStatus" jdbcType="TINYINT" />
+    <result column="data_add_time" property="dataAddTime" jdbcType="TIMESTAMP" />
+    <result column="data_modify_time" property="dataModifyTime" jdbcType="TIMESTAMP" />
+    <result column="limit_time" property="limitTime" jdbcType="TIMESTAMP" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, v_subject, v_summary, v_forever, begin_time, end_time, data_status, data_add_time, 
+    data_modify_time, limit_time, user_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wangku.entity.VoteTableExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from vote_table
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from vote_table
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from vote_table
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.wangku.entity.VoteTableExample" >
+    delete from vote_table
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.wangku.entity.VoteTable" >
+    insert into vote_table (id, v_subject, v_summary, 
+      v_forever, begin_time, end_time, 
+      data_status, data_add_time, data_modify_time, 
+      limit_time, user_id)
+    values (#{id,jdbcType=BIGINT}, #{vSubject,jdbcType=VARCHAR}, #{vSummary,jdbcType=VARCHAR}, 
+      #{vForever,jdbcType=TINYINT}, #{beginTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{dataStatus,jdbcType=TINYINT}, #{dataAddTime,jdbcType=TIMESTAMP}, #{dataModifyTime,jdbcType=TIMESTAMP}, 
+      #{limitTime,jdbcType=TIMESTAMP}, #{userId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wangku.entity.VoteTable" >
+    insert into vote_table
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="vSubject != null" >
+        v_subject,
+      </if>
+      <if test="vSummary != null" >
+        v_summary,
+      </if>
+      <if test="vForever != null" >
+        v_forever,
+      </if>
+      <if test="beginTime != null" >
+        begin_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="dataStatus != null" >
+        data_status,
+      </if>
+      <if test="dataAddTime != null" >
+        data_add_time,
+      </if>
+      <if test="dataModifyTime != null" >
+        data_modify_time,
+      </if>
+      <if test="limitTime != null" >
+        limit_time,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="vSubject != null" >
+        #{vSubject,jdbcType=VARCHAR},
+      </if>
+      <if test="vSummary != null" >
+        #{vSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="vForever != null" >
+        #{vForever,jdbcType=TINYINT},
+      </if>
+      <if test="beginTime != null" >
+        #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dataStatus != null" >
+        #{dataStatus,jdbcType=TINYINT},
+      </if>
+      <if test="dataAddTime != null" >
+        #{dataAddTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dataModifyTime != null" >
+        #{dataModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="limitTime != null" >
+        #{limitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.wangku.entity.VoteTableExample" resultType="java.lang.Integer" >
+    select count(*) from vote_table
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update vote_table
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.vSubject != null" >
+        v_subject = #{record.vSubject,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vSummary != null" >
+        v_summary = #{record.vSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vForever != null" >
+        v_forever = #{record.vForever,jdbcType=TINYINT},
+      </if>
+      <if test="record.beginTime != null" >
+        begin_time = #{record.beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endTime != null" >
+        end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.dataStatus != null" >
+        data_status = #{record.dataStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.dataAddTime != null" >
+        data_add_time = #{record.dataAddTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.dataModifyTime != null" >
+        data_modify_time = #{record.dataModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.limitTime != null" >
+        limit_time = #{record.limitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update vote_table
+    set id = #{record.id,jdbcType=BIGINT},
+      v_subject = #{record.vSubject,jdbcType=VARCHAR},
+      v_summary = #{record.vSummary,jdbcType=VARCHAR},
+      v_forever = #{record.vForever,jdbcType=TINYINT},
+      begin_time = #{record.beginTime,jdbcType=TIMESTAMP},
+      end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      data_status = #{record.dataStatus,jdbcType=TINYINT},
+      data_add_time = #{record.dataAddTime,jdbcType=TIMESTAMP},
+      data_modify_time = #{record.dataModifyTime,jdbcType=TIMESTAMP},
+      limit_time = #{record.limitTime,jdbcType=TIMESTAMP},
+      user_id = #{record.userId,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangku.entity.VoteTable" >
+    update vote_table
+    <set >
+      <if test="vSubject != null" >
+        v_subject = #{vSubject,jdbcType=VARCHAR},
+      </if>
+      <if test="vSummary != null" >
+        v_summary = #{vSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="vForever != null" >
+        v_forever = #{vForever,jdbcType=TINYINT},
+      </if>
+      <if test="beginTime != null" >
+        begin_time = #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dataStatus != null" >
+        data_status = #{dataStatus,jdbcType=TINYINT},
+      </if>
+      <if test="dataAddTime != null" >
+        data_add_time = #{dataAddTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dataModifyTime != null" >
+        data_modify_time = #{dataModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="limitTime != null" >
+        limit_time = #{limitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangku.entity.VoteTable" >
+    update vote_table
+    set v_subject = #{vSubject,jdbcType=VARCHAR},
+      v_summary = #{vSummary,jdbcType=VARCHAR},
+      v_forever = #{vForever,jdbcType=TINYINT},
+      begin_time = #{beginTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      data_status = #{dataStatus,jdbcType=TINYINT},
+      data_add_time = #{dataAddTime,jdbcType=TIMESTAMP},
+      data_modify_time = #{dataModifyTime,jdbcType=TIMESTAMP},
+      limit_time = #{limitTime,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <!-- 自定义SQL -->
+  <!-- 超级管理员 条件分页查询 投票主题 -->
+  <select id="selectWithKeyWordPaged" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from vote_table
+    where v_subject like #{keyWord,jdbcType=VARCHAR}
+    order by data_add_time desc
+    limit #{offsetValue,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  
+   <!-- 普通用户 条件分页查询 投票主题 -->
+  <select id="selectSomeWithKeyWordPaged" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from vote_table
+    where v_subject like #{keyWord,jdbcType=VARCHAR} and user_id = #{userId,jdbcType=BIGINT}
+    order by data_add_time desc
+    limit #{offsetValue,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+</mapper>

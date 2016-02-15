@@ -1,0 +1,7 @@
+@charset "utf-8";
+/*添加参数的操作按钮样式*/
+.modify_btn,.save_btn{color:#0432e1;text-decoration: underline}
+.modify_btn,.save_btn{ margin:0;}
+.modify_btn,.save_btn{ margin:0; line-height:25px;}
+
+.delete { color:#f00; text-decoration:underline;}

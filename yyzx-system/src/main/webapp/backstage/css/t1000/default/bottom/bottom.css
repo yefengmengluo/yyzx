@@ -1,0 +1,30 @@
+@charset "utf-8";
+/*全站公共样式*/
+body,ol,ul,h1,h2,h3,h4,h5,h6,p,th,td,dl,dd,form,fieldset,legend,input,textarea,select{margin:0;padding:0}
+body{font:12px "宋体","Arial Narrow",HELVETICA;background:#fff;-webkit-text-size-adjust:100%; line-height:22px;color:#444;}
+a{color:#777;text-decoration:none}
+a:hover{color:#F08418;text-decoration:none}
+em{font-style:normal}
+li{list-style:none}
+img{border:0;vertical-align:middle}
+p{word-wrap:break-word}
+.cls{clear:both;}
+.clear{clear:both;content:"";display:block;}
+.clearfix{zoom:1;}
+.clearfix:after{ content:""; display:block; height:0; clear:both; overflow:hidden; visibility:visible}
+table{border-collapse:collapse;}
+.floatL,.fl{float:left;}
+.floatR,.fr{float:right;}
+input,textarea,select,button {outline:none;}
+.t1003-com-wrap1 {margin: 0 auto; width: 1190px;}
+.copyright-copy-con-weight { font-size: 14px;font-weight: 600;}
+/*footer1*/
+.copyright-full-bottom{background:#0b63ad;}
+.copyright-copy-con ul li,.copyright-copy-con ul li a,.copyright-copy-con-special h4,.copyright-copy-con-special ul a,.copyright-full-bottom p{color:#fff;}
+.i_sina, .g_sina, .i_ren, .g_ren, .i_tx, .i_qzone, .g_qzone, .i_dban, .i_renren, .i_QQ, .i_baidu, .i_wangyi, .i_taobao, .i_house, .i_buyer, .i_diamond, .i_special, .i_zv, .i_lv, .i_editor {
+background-image:url(../../../../images/t1000/bottom/com-btm-bg1.png);padding: 2px 5px;margin-right:5px;}
+.i_dban {background:url(../../../../images/t1000/bottom/com-btm-bg2.png) 0px -112px;}
+.i_sina2 {background:url(../../../../images/t1000/bottom/com-btm-bg1.png) no-repeat -49px -21px; padding: 2px 5px;margin-right:5px;}
+.copyright-footer{border:0;background:url(../../../../images/t1000/bottom/footer-bg.png) no-repeat center 0;}
+/*返回顶端*/
+#retop{position:fixed;bottom:20%;right:3%;_position:absolute;width:44px;height:43px;background:url(../../../../images/t1000/main/v1/reTop.jpg) no-repeat;text-indent:-9em;overflow:hidden;display:none;}

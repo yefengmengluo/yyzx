@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangku.mapper.SpecialLiuYanMapper" >
+  <resultMap id="BaseResultMap" type="com.wangku.entity.SpecialLiuYan" >
+    <id column="ly_id" property="lyId" jdbcType="BIGINT" />
+    <result column="site_id" property="siteId" jdbcType="BIGINT" />
+    <result column="spec_id" property="specId" jdbcType="BIGINT" />
+    <result column="cop_name" property="copName" jdbcType="VARCHAR" />
+    <result column="linkman" property="linkman" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="tag" property="tag" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ly_id, site_id, spec_id, cop_name, linkman, mobile, comment, tag, sort, status, creat_time, 
+    end_time, user_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wangku.entity.SpecialLiuYanExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from special_liuyan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from special_liuyan
+    where ly_id = #{lyId,jdbcType=BIGINT}
+  </select>
+  
+   <!-- 分页查所有留言 -->
+   <select id="selectAllLiuYanByPage" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from special_liuyan
+    where 1=1 
+     <if test="userId != null" >
+    and user_id= #{userId}  
+      </if>
+    
+    order by creat_time desc  limit #{offset},#{pageSize} 
+  </select>
+  
+  <!-- 根据状态分页查所有留言 -->
+   <select id="selectAllLiuYanByPageStatus" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from special_liuyan  
+    where status=#{status}
+     <if test="userId != null" >
+    and user_id= #{userId}  
+      </if>
+     order by creat_time desc  limit #{offset},#{pageSize} 
+  </select>
+  
+   <!-- 分页模糊查所有留言 -->
+   <select id="selectLiuYanLikeByPage" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from special_liuyan 
+    where cop_name like #{keyWord}
+      <if test="userId != null" >
+    and user_id= #{userId}  
+      </if>
+      order by creat_time desc  limit #{offset},#{pageSize} 
+  </select>
+  
+  <!-- 不分页模糊查所有留言 -->
+   <select id="selectLiuYanLike" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from special_liuyan  
+    where cop_name like #{keyWord}
+      <if test="userId != null" >
+    and user_id= #{userId}  
+      </if>
+       order by creat_time desc
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from special_liuyan
+    where ly_id = #{lyId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.wangku.entity.SpecialLiuYanExample" >
+    delete from special_liuyan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.wangku.entity.SpecialLiuYan" >
+    insert into special_liuyan (ly_id, site_id, spec_id, 
+      cop_name, linkman, mobile, 
+      comment, tag, sort, 
+      status, creat_time, end_time, 
+      user_id)
+    values (#{lyId,jdbcType=BIGINT}, #{siteId,jdbcType=BIGINT}, #{specId,jdbcType=BIGINT}, 
+      #{copName,jdbcType=VARCHAR}, #{linkman,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{comment,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{creatTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{userId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wangku.entity.SpecialLiuYan" >
+    insert into special_liuyan
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lyId != null" >
+        ly_id,
+      </if>
+      <if test="siteId != null" >
+        site_id,
+      </if>
+      <if test="specId != null" >
+        spec_id,
+      </if>
+      <if test="copName != null" >
+        cop_name,
+      </if>
+      <if test="linkman != null" >
+        linkman,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+      <if test="tag != null" >
+        tag,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="creatTime != null" >
+        creat_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lyId != null" >
+        #{lyId,jdbcType=BIGINT},
+      </if>
+      <if test="siteId != null" >
+        #{siteId,jdbcType=BIGINT},
+      </if>
+      <if test="specId != null" >
+        #{specId,jdbcType=BIGINT},
+      </if>
+      <if test="copName != null" >
+        #{copName,jdbcType=VARCHAR},
+      </if>
+      <if test="linkman != null" >
+        #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null" >
+        #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.wangku.entity.SpecialLiuYanExample" resultType="java.lang.Integer" >
+    select count(*) from special_liuyan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update special_liuyan
+    <set >
+      <if test="record.lyId != null" >
+        ly_id = #{record.lyId,jdbcType=BIGINT},
+      </if>
+      <if test="record.siteId != null" >
+        site_id = #{record.siteId,jdbcType=BIGINT},
+      </if>
+      <if test="record.specId != null" >
+        spec_id = #{record.specId,jdbcType=BIGINT},
+      </if>
+      <if test="record.copName != null" >
+        cop_name = #{record.copName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkman != null" >
+        linkman = #{record.linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobile != null" >
+        mobile = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comment != null" >
+        comment = #{record.comment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tag != null" >
+        tag = #{record.tag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sort != null" >
+        sort = #{record.sort,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.creatTime != null" >
+        creat_time = #{record.creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endTime != null" >
+        end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update special_liuyan
+    set ly_id = #{record.lyId,jdbcType=BIGINT},
+      site_id = #{record.siteId,jdbcType=BIGINT},
+      spec_id = #{record.specId,jdbcType=BIGINT},
+      cop_name = #{record.copName,jdbcType=VARCHAR},
+      linkman = #{record.linkman,jdbcType=VARCHAR},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
+      comment = #{record.comment,jdbcType=VARCHAR},
+      tag = #{record.tag,jdbcType=VARCHAR},
+      sort = #{record.sort,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      creat_time = #{record.creatTime,jdbcType=TIMESTAMP},
+      end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      user_id = #{record.userId,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangku.entity.SpecialLiuYan" >
+    update special_liuyan
+    <set >
+      <if test="siteId != null" >
+        site_id = #{siteId,jdbcType=BIGINT},
+      </if>
+      <if test="specId != null" >
+        spec_id = #{specId,jdbcType=BIGINT},
+      </if>
+      <if test="copName != null" >
+        cop_name = #{copName,jdbcType=VARCHAR},
+      </if>
+      <if test="linkman != null" >
+        linkman = #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null" >
+        tag = #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="creatTime != null" >
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where ly_id = #{lyId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangku.entity.SpecialLiuYan" >
+    update special_liuyan
+    set site_id = #{siteId,jdbcType=BIGINT},
+      spec_id = #{specId,jdbcType=BIGINT},
+      cop_name = #{copName,jdbcType=VARCHAR},
+      linkman = #{linkman,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      comment = #{comment,jdbcType=VARCHAR},
+      tag = #{tag,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=BIGINT}
+    where ly_id = #{lyId,jdbcType=BIGINT}
+  </update>
+</mapper>

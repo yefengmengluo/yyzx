@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>yyzx</groupId>
+		<artifactId>yyzx</artifactId>
+		<version>1.0</version>
+	</parent>
+	<groupId>yyzx-system</groupId>
+	<artifactId>yyzx-system</artifactId>
+	<version>1.0</version>
+	<packaging>war</packaging>
+	<name>yyzx-system Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.10</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- 基于spring代码测试的支持包 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>4.1.2.RELEASE</version>
+			<!-- 测试时加载 -->
+			<scope>test</scope>
+		</dependency>
+
+		<!-- 添加项目依赖 -->
+		<!-- 投票 -->
+		<dependency>
+			<groupId>yyzx</groupId>
+			<artifactId>yyzx-vote</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<!-- 留言 -->
+		<dependency>
+			<groupId>yyzx</groupId>
+			<artifactId>yyzx-liuyan</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<!-- 采购 -->
+		<dependency>
+			<groupId>yyzx</groupId>
+			<artifactId>yyzx-purchase</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<!-- 足迹 -->
+		<dependency>
+			<groupId>yyzx</groupId>
+			<artifactId>yyzx-footprints</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<!-- 广告联盟 -->
+		<dependency>
+			<groupId>yyzx</groupId>
+			<artifactId>yyzx-advertising</artifactId>
+			<version>1.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
+
+	</dependencies>
+	<build>
+		<finalName>votepro-system</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>tomcat-maven-plugin</artifactId>
+				<version>1.0</version>
+				<configuration>
+					<!-- 这里就是所要配置的 端口号 -->
+					<port>80</port>
+					<path>/</path>
+					<!-- 设置tomcat插件的编码方式 -->
+					<uriEncoding>UTF-8</uriEncoding>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

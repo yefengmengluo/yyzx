@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangku.mapper.VoteSequenceMapper" >
+  <resultMap id="BaseResultMap" type="com.wangku.entity.VoteSequence" >
+    <id column="seq_name" property="seqName" jdbcType="VARCHAR" />
+    <result column="seq_current_val" property="seqCurrentVal" jdbcType="BIGINT" />
+    <result column="seq_incre_factor" property="seqIncreFactor" jdbcType="SMALLINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    seq_name, seq_current_val, seq_incre_factor
+  </sql>
+  <!-- 查询当前序列值 -->
+  <select id="selectCurrentSeq" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_sequence
+    where seq_name = #{seqName,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 修改当前序列值 -->
+  <update id="updateCurrentSeq"  parameterType="com.wangku.entity.VoteSequence">
+   update sys_sequence
+    <set >
+      <if test="seqCurrentVal != null" >
+        seq_current_val = #{seqCurrentVal,jdbcType=BIGINT},
+      </if>
+      <if test="seqIncreFactor != null" >
+        seq_incre_factor = #{seqIncreFactor,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where seq_name = #{seqName,jdbcType=VARCHAR}
+  </update>
+   <!--添加一个序列对象 -->
+  <insert id="insertSelective" parameterType="com.wangku.entity.VoteSequence" >
+    insert into sys_sequence
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="seqName != null" >
+        seq_name,
+      </if>
+      <if test="seqCurrentVal != null" >
+        seq_current_val,
+      </if>
+      <if test="seqIncreFactor != null" >
+        seq_incre_factor,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="seqName != null" >
+        #{seqName,jdbcType=VARCHAR},
+      </if>
+      <if test="seqCurrentVal != null" >
+        #{seqCurrentVal,jdbcType=BIGINT},
+      </if>
+      <if test="seqIncreFactor != null" >
+        #{seqIncreFactor,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wangku.entity.VoteSequenceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_sequence
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_sequence
+    where seq_name = #{seqName,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_sequence
+    where seq_name = #{seqName,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.wangku.entity.VoteSequenceExample" >
+    delete from sys_sequence
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.wangku.entity.VoteSequence" >
+    insert into sys_sequence (seq_name, seq_current_val, seq_incre_factor
+      )
+    values (#{seqName,jdbcType=VARCHAR}, #{seqCurrentVal,jdbcType=BIGINT}, #{seqIncreFactor,jdbcType=SMALLINT}
+      )
+  </insert>
+ 
+  <select id="countByExample" parameterType="com.wangku.entity.VoteSequenceExample" resultType="java.lang.Integer" >
+    select count(*) from sys_sequence
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_sequence
+    <set >
+      <if test="record.seqName != null" >
+        seq_name = #{record.seqName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.seqCurrentVal != null" >
+        seq_current_val = #{record.seqCurrentVal,jdbcType=BIGINT},
+      </if>
+      <if test="record.seqIncreFactor != null" >
+        seq_incre_factor = #{record.seqIncreFactor,jdbcType=SMALLINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_sequence
+    set seq_name = #{record.seqName,jdbcType=VARCHAR},
+      seq_current_val = #{record.seqCurrentVal,jdbcType=BIGINT},
+      seq_incre_factor = #{record.seqIncreFactor,jdbcType=SMALLINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangku.entity.VoteSequence" >
+    update sys_sequence
+    <set >
+      <if test="seqCurrentVal != null" >
+        seq_current_val = #{seqCurrentVal,jdbcType=BIGINT},
+      </if>
+      <if test="seqIncreFactor != null" >
+        seq_incre_factor = #{seqIncreFactor,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where seq_name = #{seqName,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangku.entity.VoteSequence" >
+    update sys_sequence
+    set seq_current_val = #{seqCurrentVal,jdbcType=BIGINT},
+      seq_incre_factor = #{seqIncreFactor,jdbcType=SMALLINT}
+    where seq_name = #{seqName,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,192 @@
+/* CSS Document */
+
+body,ol,ul,h1,h2,h3,h4,h5,h6,p,th,td,dl,dd,form,fieldset,legend,input,textarea,select{margin:0;padding:0}
+body{font:12px "微软雅黑","Arial Narrow",HELVETICA; line-height:22px;background:#fff;color:#252525;}
+a{color:#252525;text-decoration:none}
+a:hover{color:#F08418;text-decoration:none}
+em{font-style:normal}
+li{list-style:none}
+img{border:0;vertical-align:middle}
+p{word-wrap:break-word}
+.cls{clear:both;}
+.clear{clear:both;content:"";display:table;}
+.clearfix{zoom:1;}
+.clearfix:after{ content:"."; display:block; height:0; clear:both; overflow:hidden; visibility:visible}
+table{border-collapse:collapse;}
+.floatL{float:left;}
+.floatR{float:right;}
+
+/*专题开始*/
+/*头部图片*/
+/*1000以上屏幕*/
+@media screen and(min-width:1000px){
+.marketingtop1{width:1000px; margin:0 auto; width:50%;}
+}
+.bookingTit { width:185px; height:30px;}
+.bookingTit span{float:right;display:block;/*background:url(../../../images/special/weixinspecial/closeICon.jpg) no-repeat;*/width:138px;height:26px;cursor:pointer;margin-top:8px;padding-right:3px; color:#FF8500;}
+.pdt15{ padding-top:15px; font-size:14px; font-family:"微软雅黑";color:#fff; width:424px;}
+.pdt15 span{ background:url(../../../images/special/weixinspecial/tell.jpg)  no-repeat 0 2px; padding-left:25px; margin-left:12px;}
+.wrapper {width:1080px;padding:0 12px;margin:0 auto;}
+.marketingtop1 img{ margin:0 auto;}
+.marketingtop1{ padding-top:20px;}
+.marketingtop-right{ width:480px;}
+.marketingtop-right ul li{ float:left; margin-right:22px; display:inline;}
+.marketlogo img{vertical-align:middle;display:table-cell; text-align:center; }
+
+.marketingtop110{  background:#ff0000 ;background-size:cover; height:30px;margin:0 auto; border-bottom:solid 2px #ffffff;}
+
+.marketingtop1{  background: url(../../../images/special/weixinspecial/wx1.jpg) no-repeat center center;height:45px;margin:0 auto; border-bottom:solid 2px #ffffff;}
+
+.marketingtop2{ background: url(../../../images/special/weixinspecial/wx2.jpg)  no-repeat center center ;margin:0 auto;height:604px; position:relative;}
+.alineqq{ position:absolute; left:450px;top:450px; height:100px; width:200px; display:block; }
+
+.alineqq a{ cursor:pointer; display:block; width:200px;height:100px;text-indent:-9999px;}
+.marketingtop3{ background: url(../../../images/special/weixinspecial/wx3.jpg) no-repeat center center;height:540px;margin:0 auto; position:relative;}
+.marketingtop4{ background: url(../../../images/special/weixinspecial/wx4.jpg)  no-repeat center center ;margin:0 auto;height:60px; margin:42px 0;}
+.marketingtop5{ background: url(../../../images/special/weixinspecial/wx5.jpg)  no-repeat center center ;margin:0 auto;height:215px; margin-bottom:12px;}
+.marketingtop6{ background: url(../../../images/special/weixinspecial/wx6.jpg)  no-repeat center center ;margin:0 auto;height:215px; margin-bottom:12px;}
+.marketingtop7{ background: url(../../../images/special/weixinspecial/wx7.jpg)  no-repeat center center ;margin:0 auto;height:215px; margin-bottom:12px;}
+.marketingtop8{ background: url(../../../images/special/weixinspecial/wx8.jpg)  no-repeat center center ;margin:0 auto;height:319px; margin-bottom:12px;}
+.marketingtop9{ background: url(../../../images/special/weixinspecial/wx9.jpg)  no-repeat center center ;margin:0 auto;height:54px;}
+.marketingtop10{ background: url(../../../images/special/weixinspecial/wx10.jpg)  no-repeat center center ;margin:0 auto;height:49px; margin:10px 0 20px 0; position:relative;}
+.alineqq2{ position:absolute; left:450px;top:10px; height:100px; width:500px; display:block; }
+.alineqq2 a{ cursor:pointer; display:block; width:500px;height:100px;text-indent:-9999px;}
+.marketingtop11{ background: url(../../../images/special/weixinspecial/wx11.jpg)  no-repeat center center ;margin:0 auto;height:745px;}
+
+.marketingtop12{ background: url(../../../images/special/weixinspecial/wx12.jpg)  no-repeat center center ;margin:0 auto;height:465px;margin-bottom:48px;}
+.marketingtop13{ background: url(../../../images/special/weixinspecial/wx13.jpg)  no-repeat center center ;margin:0 auto;height:381px;margin-bottom:48px;}
+.marketingtop14{ background: url(../../../images/special/weixinspecial/wx14.jpg)  no-repeat center center ;margin:0 auto;height:556px;margin-bottom:40px;}
+.marketingtop15{ background: url(../../../images/special/weixinspecial/wx15.jpg)  no-repeat center center ;margin:0 auto;height:562px;margin-bottom:40px;}
+
+.marketingtop16{ background: url(../../../images/special/weixinspecial/wx16.jpg)  no-repeat center center ;margin:0 auto;height:414px;}
+.marketingtop17{ background: url(../../../images/special/weixinspecial/wx17.jpg)  no-repeat center center ;margin:0 auto;height:274px;}
+.marketingtop18{ background: url(../../../images/special/weixinspecial/wx18.jpg)  no-repeat center center ;margin:0 auto;height:138px;}
+.marketingtop19{ background: url(../../../images/special/weixinspecial/wx19.jpg)  no-repeat center center ;margin:0 auto;height:141px;}
+
+.marketingtop111{ background: url(../../../images/special/weixinspecial/wx111.jpg)  no-repeat center center ;margin:0 auto;height:140px;}
+
+.marketingtop112{ background: url(../../../images/special/weixinspecial/wx112.jpg)  no-repeat center center ;margin:0 auto;height:143px; margin-bottom:40px;}
+.marketingtop113{margin:0 auto; width:900px;height:220px;margin-bottom:48px; }
+.marketingtop113 ul{width:910px;}
+.marketingtop113 ul li{ float:left; border:solid 2px #f39800;margin-right:2px; width:220px; height:215px; border-radius:3px; }
+.on{ display:block;}
+.marketingtop113-1{ background:url(../../../images/special/weixinspecial/wx113.jpg) no-repeat;}
+.marketingtop113-2{ background:url(../../../images/special/weixinspecial/wx114.jpg) no-repeat;}
+.marketingtop113-3{ background:url(../../../images/special/weixinspecial/wx115.jpg) no-repeat;}
+.marketingtop113-4{ background:url(../../../images/special/weixinspecial/wx116.jpg) no-repeat;}
+.t2007-com-ad-conbox{ display:none; width:220px; height:215px;}
+.marketingtop113 span:hover .t2007-com-ad-conbox{position:fixed;display:block;right:157px;top:61px;border:solid 1px #dddddd; padding:12px; background:#fff; z-index:999; }
+.marketingtop114{ background:#e6e6e6 url(../../../images/special/weixinspecial/wx117.jpg)  no-repeat center center ;margin:0 auto;height:324px;}
+.marketingtop115{ background:#e6e6e6 url(../../../images/special/weixinspecial/wx118.jpg)  no-repeat center center ;margin:0 auto;height:479px;}
+.marketingtop116{ background: url(../../../images/special/weixinspecial/wx119.jpg)  no-repeat center center ;margin:0 auto;height:964px;}
+.marketingtop20{ background:#d2d2d2 url(../../../images/special/weixinspecial/wx120.jpg) no-repeat center center;height:63px;margin:0 auto;padding:30px 0; }
+.detother{ width:1000px; height:474px; overflow:hidden; margin-left:28px;}
+.h160{ height:180px;}
+
+
+.marketingtop21{ background:#eaeaea;height:300px;margin:0 auto; padding:30px 0 20px 0; overflow:hidden;}
+.marketingtop120{ background:#1f0000;margin:0 auto;padding:30px 0; }
+.marketingtop120-top{width:630px; margin:0 auto;}
+.marketingtop120-img{ text-align:right;}
+.content{ width:650px; margin:12px 0 25px 0;}
+.content span{ background:#d6000f; width:140px; border-right:solid 2px #fff;height:34px; line-height:34px; font-family:"Microsoft Yahei"; color:#fff; font-size:18px; display:block; text-align:center; float:left;}
+.content input{ height:24px; line-height:24px; width:466px;  border:0;border-bottom:solid 3px #1f0000; background:#c9c9ca; padding:5px 10px;}
+.content input.qian{background:#dcdddd;}
+.ret_btn {
+    border: 0 none;
+    color: #fff;
+	font-family:"Microsoft Yahei";
+    cursor: pointer;
+    font-size:18px;
+    font-weight: 400;
+    height:34px;
+	line-height:28px;
+	 font-weight:bold;
+    width: 134px;
+	background:url(../../../images/special/weixinspecial/wx152.gif) no-repeat;
+}
+.marketingtop121{ background: url(../../../images/special/weixinspecial/wx154.gif) no-repeat center center;margin:0 auto;height:306px; }
+.marketingtop122{ background:#ff0000 url(../../../images/special/weixinspecial/wx155.jpg) no-repeat center center;margin:0 auto; height:102px; border-bottom:solid 15px #b60005;padding:30px 0; }
+/*切换*/
+.module02-h136{ width:554px; height:131px; border-bottom:#f1f1f1 1px solid; float:left; display:inline;}
+
+.cor{border-right:#e2e2e2 1px solid;}
+
+.productshowBox{width:1024px;
+	float:left;
+	height:300px;
+}
+
+.productshow{ width:1080px; height:300px; float:left; position:relative; margin:0px auto;}
+.leftBtn,.rightBtn{width:40px;height:184px;float:left;margin-top:15px;}
+.leftBtn{margin-right:8px;}
+.rightBtn{margin-left:8px;}
+.productshow a.abtn{width:26px; height:116px;left:1000px; display:block; text-indent:-99999px; position:absolute; top:80px; overflow:hidden; }
+.productshow a.aleft{left:-25px; background: url(../../../images/special/weixinspecial/left.jpg) no-repeat ; background-position:center; background-repeat:no-repeat;}
+.productshow a.aright{right:0px;background: url(../../../images/special/weixinspecial/pl1_56.jpg) no-repeat; background-position:center; background-repeat:no-repeat;}
+.productshow .scrollcontainer{width:980px;height:300px; position:relative; float:left; overflow:hidden; margin:0px auto;}
+.productshow .scrollcontainer ul{width:20000px; position:absolute; left:0px; top:0px;}
+.productshow .scrollcontainer li{float:left;height:275px;width:196px;text-align:center; display:inline; background:#fff url(../../../images/special/weixinspecial/bag.jpg) no-repeat center center;}
+.productshow .scrollcontainer li img{width:169px; text-align:center; height:255px; margin-top:5px;}
+.productshow .scrollcontainer li span{text-align:center; color:#8c6902; width:180px; display:block; line-height:30px;}
+/*内容开始*/
+.marketingmain{margin:0 auto; width:100%; background:url(../../../images/special/weixinspecial/marketing_09.jpg) repeat;}
+.marketingmain1{text-align:center;}
+.marketingmain div{text-align:center;}
+.marketingbottom{}
+/*公用颜色*/
+.slblue{ background:#359ceb;}
+.darkgray{background:#efefef;}
+.lightgray{background:#999;}
+.lightgrayfont{ color:#999;}
+
+
+
+
+
+.marketingbottom{ color:#fff; font-size:14px; padding:20px 0;}
+#qqtop a{ cursor:pointer;}
+#qqtop{ text-align:center; border-bottom:solid 10px #0061ce; margin-top:50px;}
+
+
+.footer{ background:#1a8bc3;border-top: 1px solid #E8E8E8; padding-bottom:40px;}
+.footer p{ text-align:center; line-height:24px; color:#fff;}
+.footer p span{ font-family:Arial, Helvetica, sans-serif;}
+
+.copy{height:30px;padding-bottom:1px; padding-top:20px;width:1000px;margin:0 auto;}
+.copy1{float:left;margin-left:30px;display:inline;}
+.copy1 li{height:22px;line-height:22px; float:left;overflow:hidden;color:#666666; padding:0;}
+.copy1 li a{color:#fff;}
+.copy1 li span{ padding:0 28px;color:#fff;}
+.weight{font-weight:600;font-size:14px;}
+.f_list {float: left;line-height: 20px;margin-left:30px;display:inline;}
+.f_list h4 {font-size: 14px;font-weight: normal;font-weight:600;font-size:14px;color:#666666;}
+
+
+ #returnTop {
+	_display:none;
+	position:fixed;
+	_position:absolute;
+	z-index:999;
+	right:15px;
+	bottom:-200px;
+	_bottom:auto;
+	width:36px;
+	height:65px;
+	text-indent:-999px;
+	overflow:hidden;
+	background-image:  url(../../../images/special/weixinspecial/Top.png);
+	_background-image:url(../../../images/special/weixinspecial/Top.png);
+	background-repeat:no-repeat;
+	background-position:0 0;
+	transition:bottom 0.9s;
+	-webkit-transition:bottom 0.9s;
+	-moz-transition:bottom 0.9s;
+	-o-transition:bottom 0.9s;
+}
+#returnTop:hover {
+	background-position:0px -65px;
+}
+.t1022-com-twoadright{ position:fixed;}
+.footimg{ width:445px; margin:0 auto; margin-top:20px;}
+.footimg img{ margin-right:20px;}

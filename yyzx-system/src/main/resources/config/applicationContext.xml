@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+	<!-- 导入jdbc配置文件 -->
+	<context:property-placeholder location="classpath:config/jdbc.properties" />
+	<!-- DUBBO服务配置 -->
+	<context:property-placeholder ignore-unresolvable="true" location="classpath:config/server-config.properties"/>
+	<!-- 配置数据源 -->
+	<bean id="master" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="jdbcUrl" value="${writeVote.jdbc.url}" />
+		<property name="driverClass" value="${jdbc.driverClass}" />
+		<property name="user" value="${writeVote.jdbc.username}" />
+		<property name="password" value="${writeVote.jdbc.password}" />
+		 <!-- 指定连接池中保留的最大连接数. Default:15-->  
+        <property name="maxPoolSize" value="${jdbc.maxPoolSize}"/>  
+        <!-- 指定连接池中保留的最小连接数-->  
+        <property name="minPoolSize" value="${jdbc.minPoolSize}"/>  
+        <!-- 指定连接池的初始化连接数  取值应在minPoolSize 与 maxPoolSize 之间.Default:3-->  
+        <property name="initialPoolSize" value="${jdbc.initialPoolSize}"/>  
+        <!-- 最大空闲时间,60秒内未使用则连接被丢弃。若为0则永不丢弃。 Default:0-->  
+        <property name="maxIdleTime" value="${jdbc.maxIdleTime}"/>  
+        <!-- 当连接池中的连接耗尽的时候c3p0一次同时获取的连接数. Default:3-->  
+        <property name="acquireIncrement" value="${jdbc.acquireIncrement}"/>  
+        <!-- JDBC的标准,用以控制数据源内加载的PreparedStatements数量。  
+        但由于预缓存的statements属于单个connection而不是整个连接池所以设置这个参数需要考虑到多方面的因数.如果maxStatements与maxStatementsPerConnection均为0,则缓存被关闭。Default:0-->  
+        <property name="maxStatements" value="${jdbc.maxStatements}"/>  
+        <!-- 每60秒检查所有连接池中的空闲连接.Default:0 -->  
+        <property name="idleConnectionTestPeriod" value="${jdbc.idleConnectionTestPeriod}"/> 
+        <!--两次连接中间隔时间，单位毫秒。Default: 1000 -->
+		<property name="acquireRetryDelay" value="1000"></property> 
+		<!--定义在从数据库获取新连接失败后重复尝试的次数。Default: 30 -->
+	    <property name="acquireRetryAttempts" value="30"></property> 
+	    <!--连接关闭时默认将所有未提交的操作回滚。Default: false --> 
+	    <property name="breakAfterAcquireFailure" value="false"></property>  
+	</bean>
+	
+	<!-- 读库 -->
+	<bean id="slave" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="jdbcUrl" value="${readVote.jdbc.url}" />
+		<property name="driverClass" value="${jdbc.driverClass}" />
+		<property name="user" value="${readVote.jdbc.username}" />
+		<property name="password" value="${readVote.jdbc.password}" />
+		 <!-- 指定连接池中保留的最大连接数. Default:15-->  
+        <property name="maxPoolSize" value="${jdbc.maxPoolSize}"/>  
+        <!-- 指定连接池中保留的最小连接数-->  
+        <property name="minPoolSize" value="${jdbc.minPoolSize}"/>  
+        <!-- 指定连接池的初始化连接数  取值应在minPoolSize 与 maxPoolSize 之间.Default:3-->  
+        <property name="initialPoolSize" value="${jdbc.initialPoolSize}"/>  
+        <!-- 最大空闲时间,60秒内未使用则连接被丢弃。若为0则永不丢弃。 Default:0-->  
+        <property name="maxIdleTime" value="${jdbc.maxIdleTime}"/>  
+        <!-- 当连接池中的连接耗尽的时候c3p0一次同时获取的连接数. Default:3-->  
+        <property name="acquireIncrement" value="${jdbc.acquireIncrement}"/>  
+        <!-- JDBC的标准,用以控制数据源内加载的PreparedStatements数量。  
+        但由于预缓存的statements属于单个connection而不是整个连接池所以设置这个参数需要考虑到多方面的因数.如果maxStatements与maxStatementsPerConnection均为0,则缓存被关闭。Default:0-->  
+        <property name="maxStatements" value="${jdbc.maxStatements}"/>  
+        <!-- 每60秒检查所有连接池中的空闲连接.Default:0 -->  
+        <property name="idleConnectionTestPeriod" value="${jdbc.idleConnectionTestPeriod}"/>  
+        <!--两次连接中间隔时间，单位毫秒。Default: 1000 -->
+		<property name="acquireRetryDelay" value="1000"></property> 
+		<!--定义在从数据库获取新连接失败后重复尝试的次数。Default: 30 -->
+	    <property name="acquireRetryAttempts" value="30"></property> 
+	    <!--连接关闭时默认将所有未提交的操作回滚。Default: false --> 
+	    <property name="breakAfterAcquireFailure" value="false"></property>
+	</bean>
+	<bean id="slaveWkSysMeb" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="jdbcUrl" value="${readSysmeb.jdbc.url}" />
+		<property name="driverClass" value="${jdbc.driverClass}" />
+		<property name="user" value="${readSysmeb.jdbc.username}" />
+		<property name="password" value="${readSysmeb.jdbc.password}" />
+		 <!-- 指定连接池中保留的最大连接数. Default:15-->  
+        <property name="maxPoolSize" value="${jdbc.maxPoolSize}"/>  
+        <!-- 指定连接池中保留的最小连接数-->  
+        <property name="minPoolSize" value="${jdbc.minPoolSize}"/>  
+        <!-- 指定连接池的初始化连接数  取值应在minPoolSize 与 maxPoolSize 之间.Default:3-->  
+        <property name="initialPoolSize" value="${jdbc.initialPoolSize}"/>  
+        <!-- 最大空闲时间,60秒内未使用则连接被丢弃。若为0则永不丢弃。 Default:0-->  
+        <property name="maxIdleTime" value="${jdbc.maxIdleTime}"/>  
+        <!-- 当连接池中的连接耗尽的时候c3p0一次同时获取的连接数. Default:3-->  
+        <property name="acquireIncrement" value="${jdbc.acquireIncrement}"/>  
+        <!-- JDBC的标准,用以控制数据源内加载的PreparedStatements数量。  
+        但由于预缓存的statements属于单个connection而不是整个连接池所以设置这个参数需要考虑到多方面的因数.如果maxStatements与maxStatementsPerConnection均为0,则缓存被关闭。Default:0-->  
+        <property name="maxStatements" value="${jdbc.maxStatements}"/>  
+        <!-- 每60秒检查所有连接池中的空闲连接.Default:0 -->  
+        <property name="idleConnectionTestPeriod" value="${jdbc.idleConnectionTestPeriod}"/>  
+        <!--两次连接中间隔时间，单位毫秒。Default: 1000 -->
+		<property name="acquireRetryDelay" value="1000"></property> 
+		<!--定义在从数据库获取新连接失败后重复尝试的次数。Default: 30 -->
+	    <property name="acquireRetryAttempts" value="30"></property> 
+	    <!--连接关闭时默认将所有未提交的操作回滚。Default: false --> 
+	    <property name="breakAfterAcquireFailure" value="false"></property>
+	</bean>
+	<bean id="slaveWkSysBus" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="jdbcUrl" value="${readSysBus.jdbc.url}" />
+		<property name="driverClass" value="${jdbc.driverClass}" />
+		<property name="user" value="${readSysBus.jdbc.username}" />
+		<property name="password" value="${readSysBus.jdbc.password}" />
+	</bean>
+	<bean id="dataSource" class="com.wangku.jdbc.DynamicDataSource">
+		<property name="targetDataSources">
+			<map key-type="java.lang.String">
+				<!-- write -->
+				<entry key="master" value-ref="master" />
+				<!-- read -->
+				<entry key="slave" value-ref="slave" />
+				<!-- read wk_sys -->
+				<entry key="slaveWkSysMeb" value-ref="slaveWkSysMeb" />
+				<entry key="slaveWkSysBus" value-ref="slaveWkSysBus" />
+			</map>
+
+		</property>
+		<property name="defaultTargetDataSource" ref="master" />
+	</bean>
+	<!-- 配置SqlSessionFactory -->
+	<bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 注入数据源 -->
+		<property name="dataSource" ref="dataSource" />
+		<!-- 注册实体类别名 -->
+		<property name="typeAliasesPackage" value="com.wangku.entity"/>
+		<!-- 注册映射文件 -->
+		<property name="mapperLocations" value="classpath:com/wangku/mapper/*.xml" />
+	</bean>
+
+	<!-- scan for mappers and let them be autowired -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.wangku.mapper" />
+
+	</bean>
+	<!-- enable component scanning (beware that this does not enable mapper 
+		scanning!) -->
+	<context:component-scan base-package="com.wangku.**">
+		<context:exclude-filter expression="org.springframework.stereotype.Controller"
+			type="annotation" />
+	</context:component-scan>
+
+	<!-- enable autowire -->
+	<context:annotation-config />
+
+	<!-- 配置 SqlSessionTemplate SqlSessionTemplate无空参构造 使用构造注入 -->
+	<bean id="sessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sessionFactory" />
+		<!-- 支持批量操作 -->
+		<constructor-arg index="1" value="BATCH" />
+	</bean>
+	<!-- 配置事务 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<!-- 开启事务注解 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	<!-- 开启aop注解 -->
+	<!-- 配置数据库注解aop -->
+	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+	<bean id="manyDataSourceAspect" class="com.wangku.jdbc.DataSourceAspect" />
+	<aop:config>
+		<aop:aspect id="c" ref="manyDataSourceAspect">
+			<aop:pointcut id="tx"
+				expression="(execution(* com.wangku.service.*.*(..)))" />
+			<aop:before pointcut-ref="tx" method="before" />
+		</aop:aspect>
+	</aop:config>
+
+	<!-- 配置扫描组建包 -->
+	<context:component-scan base-package="com.wangku.service.*" />
+
+	<!-- 定时器开关 开始 -->
+	<!-- <task:annotation-driven /> -->
+	<!-- 定时器开关 结束 -->
+	
+	<!-- Enables the Spring Task @Scheduled programming model -->
+	<task:executor id="executor" pool-size="1" />
+	<task:scheduler id="scheduler" pool-size="1" />
+	<task:annotation-driven executor="executor" scheduler="scheduler" />
+	<!-- 导入SpringSecurity配置文件 -->
+	<!-- <import resource="classpath:config/spring-security.xml"/> -->
+</beans>

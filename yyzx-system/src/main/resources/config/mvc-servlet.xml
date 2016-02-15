@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+                        http://www.springframework.org/schema/aop
+                        http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+                        http://www.springframework.org/schema/context
+                        http://www.springframework.org/schema/context/spring-context-3.2.xsd
+                        http://www.springframework.org/schema/tx
+                        http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+                        http://www.springframework.org/schema/mvc
+                        http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
+	<!-- 扫描Controller -->
+	<context:component-scan base-package="com.wangku.controller" />
+	<context:component-scan base-package="com.wangku.util" />
+	<!-- 启用注解 -->
+	<mvc:annotation-driven/>
+	<!-- 注册类型转换器 -->
+	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+		<property name="converters">
+			<list>
+				<bean class="com.wangku.converter.DateConverter"/>
+			</list>
+		</property>
+	</bean>
+	<!-- 视图解析器 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+	<!--兼容视图内容解析器，支持多种请求相应类型，例如xml,json -->
+	<bean id="contentNegotiatingViewResolver"
+		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="mediaTypes">
+			<map>
+				<entry key="json" value="application/json" />
+				<!-- <entry key="xml" value="application/xml" /> -->
+				<entry key="html" value="text/html" />
+			</map>
+		</property>
+		<property name="defaultViews">
+			<list>
+				<bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"></bean>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 支持文件上传 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="10240000" />
+	</bean>
+	 <!-- 配置spring的异常处理 -->
+    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+    	<property name="exceptionMappings">
+    		<props>
+    			<prop key="java.lang.RuntimeException">/backstage/backPage/errors/error</prop>
+    		</props>
+    	</property>
+    </bean>
+	<!-- 配置静态资源处理 -->
+	
+	<mvc:default-servlet-handler />
+</beans>

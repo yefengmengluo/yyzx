@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangku.mapper.LeagueWebsiteMapper" >
+  <resultMap id="BaseResultMap" type="com.wangku.entity.LeagueWebsite" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="site_url" property="siteUrl" jdbcType="VARCHAR" />
+    <result column="site_name" property="siteName" jdbcType="VARCHAR" />
+    <result column="jd_belong" property="jdBelong" jdbcType="VARCHAR" />
+    <result column="industry_id" property="industryId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="opt_person" property="optPerson" jdbcType="VARCHAR" />
+    <result column="del_flag" property="delFlag" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, site_url, site_name, jd_belong, industry_id, create_time, update_time, opt_person, 
+    del_flag
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wangku.entity.LeagueWebsiteExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from league_website_tab
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from league_website_tab
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from league_website_tab
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.wangku.entity.LeagueWebsiteExample" >
+    delete from league_website_tab
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.wangku.entity.LeagueWebsite" >
+    insert into league_website_tab (id, site_url, site_name, 
+      jd_belong, industry_id, create_time, 
+      update_time, opt_person, del_flag
+      )
+    values (#{id,jdbcType=BIGINT}, #{siteUrl,jdbcType=VARCHAR}, #{siteName,jdbcType=VARCHAR}, 
+      #{jdBelong,jdbcType=VARCHAR}, #{industryId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{optPerson,jdbcType=VARCHAR}, #{delFlag,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wangku.entity.LeagueWebsite" >
+    insert into league_website_tab
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="siteUrl != null" >
+        site_url,
+      </if>
+      <if test="siteName != null" >
+        site_name,
+      </if>
+      <if test="jdBelong != null" >
+        jd_belong,
+      </if>
+      <if test="industryId != null" >
+        industry_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="optPerson != null" >
+        opt_person,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="siteUrl != null" >
+        #{siteUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="siteName != null" >
+        #{siteName,jdbcType=VARCHAR},
+      </if>
+      <if test="jdBelong != null" >
+        #{jdBelong,jdbcType=VARCHAR},
+      </if>
+      <if test="industryId != null" >
+        #{industryId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="optPerson != null" >
+        #{optPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.wangku.entity.LeagueWebsiteExample" resultType="java.lang.Integer" >
+    select count(*) from league_website_tab
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update league_website_tab
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.siteUrl != null" >
+        site_url = #{record.siteUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.siteName != null" >
+        site_name = #{record.siteName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jdBelong != null" >
+        jd_belong = #{record.jdBelong,jdbcType=VARCHAR},
+      </if>
+      <if test="record.industryId != null" >
+        industry_id = #{record.industryId,jdbcType=BIGINT},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.optPerson != null" >
+        opt_person = #{record.optPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.delFlag != null" >
+        del_flag = #{record.delFlag,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update league_website_tab
+    set id = #{record.id,jdbcType=BIGINT},
+      site_url = #{record.siteUrl,jdbcType=VARCHAR},
+      site_name = #{record.siteName,jdbcType=VARCHAR},
+      jd_belong = #{record.jdBelong,jdbcType=VARCHAR},
+      industry_id = #{record.industryId,jdbcType=BIGINT},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      opt_person = #{record.optPerson,jdbcType=VARCHAR},
+      del_flag = #{record.delFlag,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangku.entity.LeagueWebsite" >
+    update league_website_tab
+    <set >
+      <if test="siteUrl != null" >
+        site_url = #{siteUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="siteName != null" >
+        site_name = #{siteName,jdbcType=VARCHAR},
+      </if>
+      <if test="jdBelong != null" >
+        jd_belong = #{jdBelong,jdbcType=VARCHAR},
+      </if>
+      <if test="industryId != null" >
+        industry_id = #{industryId,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="optPerson != null" >
+        opt_person = #{optPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangku.entity.LeagueWebsite" >
+    update league_website_tab
+    set site_url = #{siteUrl,jdbcType=VARCHAR},
+      site_name = #{siteName,jdbcType=VARCHAR},
+      jd_belong = #{jdBelong,jdbcType=VARCHAR},
+      industry_id = #{industryId,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      opt_person = #{optPerson,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  
+  
+  <!-- 自定义sql -->
+  <!-- 分页查询网站列表 -->
+  <select id="queryLeagueWebsitesByIndustryIdPaged"  resultType="com.wangku.entity.LeagueWebsite">
+    select 
+       league_website_tab.id, 
+       site_url siteUrl, 
+       site_name siteName, 
+       jd_belong jdBelong, 
+       industry_id industryId, 
+       league_website_tab.create_time createTime, 
+       league_website_tab.update_time updateTime, 
+       league_website_tab.opt_person optPerson,
+       param_name industryName
+    from league_website_tab 
+    left join league_pram on league_website_tab.industry_id=league_pram.id
+    where 1=1 and del_flag = 0
+		<if test="industryId != null and industryId !=0">
+			and industry_id = #{industryId,jdbcType=BIGINT}
+		</if>
+		<if test="likeParam != null">
+			and (site_url like '%${likeParam}%'
+			or site_name like '%${likeParam}%'
+			or jd_belong like '%${likeParam}%'
+			or opt_person like '%${likeParam}%')
+		</if>
+		ORDER BY league_website_tab.update_time DESC
+		limit #{offsetValue,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  <!-- 统计网站查询结果总数 -->
+  <select id="queryLeagueWebsitesByIndustryIdCount" resultType="java.lang.Integer">
+    select count(*) from league_website_tab
+    where 1=1 and del_flag = 0
+		<if test="industryId != null and industryId !=0">
+			and industry_id = #{industryId,jdbcType=BIGINT}
+		</if>
+		<if test="likeParam != null">
+			and (site_url like '%${likeParam}%'
+			or site_name like '%${likeParam}%'
+			or jd_belong like '%${likeParam}%'
+			or opt_person like '%${likeParam}%')
+		</if>
+  </select>
+  <!-- 批量添加 -->
+  <insert id="addBatch" parameterType="com.wangku.entity.LeagueSize">
+     insert into league_website_tab (id, site_url, site_name, 
+      jd_belong, industry_id, create_time, 
+      update_time, opt_person)
+    values 
+    <foreach collection="list" item="item" index="index" separator="," >  
+        (#{item.id,jdbcType=BIGINT}, #{item.siteUrl,jdbcType=VARCHAR}, #{item.siteName,jdbcType=VARCHAR}, 
+      #{item.jdBelong,jdbcType=VARCHAR}, #{item.industryId,jdbcType=BIGINT}, #{item.createTime,jdbcType=TIMESTAMP}, 
+      #{item.updateTime,jdbcType=TIMESTAMP}, #{item.optPerson,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  
+  <!-- 批量删除 -->
+  <delete id="delBatch">
+		delete from league_website_tab where id in
+		<foreach collection="idList" item="listItem"
+				open="(" close=")" separator=",">
+			#{listItem}
+		</foreach>
+	</delete>
+  
+</mapper>

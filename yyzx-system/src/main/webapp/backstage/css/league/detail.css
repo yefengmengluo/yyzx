@@ -1,0 +1,116 @@
+@charset "utf-8";
+/* CSS Document */
+tr { cursor:pointer;}
+/*详情信息*/
+.detail-content { padding:20px 15px;}
+
+.detail-title-left {width:15%; height:26px; margin-right:16px;}
+.detail-title-left select{ width:100%; height:26px; line-height:26px; border:1px solid #dfdfdf; color:#252525; padding-left:10px;}
+.detail-title-center { width:36.8%; height:26px;}
+.detail-search-text { width:55%; height:24px; line-height:24px; border:1px solid #dfdfdf; border-radius:2px; padding:0 5px;}
+.detail-search-btn { width:86px; height:24px; text-align:center; border:1px solid #abc2e4; color:#252525; background:url(../../images/league/save_bg.jpg);}
+.detail-title-right { width:17.4%; height:26px; margin-right:20px; line-height:26px;}
+.detail-title-right p { font-size:18px; color:#227ae5;}
+.detail-title-right p span { color:#f00;}
+.listManage { margin-top:16px;}
+.ind-query-con .listManage tr td { line-height:38px;}
+.ind-query-con .listManage tr th { line-height:38px;}
+.detail-content .listManage tr th { line-height:38px;}
+.detail-content .listManage tr td { line-height:38px;}
+
+.lm_1 { width:12%;}
+.lm_2 { width:24%;}
+.lm_3 { width:9.5%;}
+.lm_4 { width:13.3%}
+
+.listManage tr td.lm_2 { color:#252525;}
+.listManage tr td.lm_3 { color:#a5a5a5;}
+.listManage tr td.blue-text { color:#227ae5;}
+.listManage tr td.red-text { color:#f00;}
+.detail { color:#ff6000; text-decoration:underline; display:inline-block; margin-right:16px;}
+.listManage tr td a.delete { color:#227ae5; text-decoration:none; display:inline-block; float:none;}
+
+	/*流量趋势*/
+.flow-trend { width:100%; border:1px solid #dfdfdf; margin-top:20px;}
+.flow-trend-title { height:38px; line-height:38px; background:#fafafa; padding-left:14px;}
+.flow-trend-title h2 { font-size:14px;}
+.flow-trend-content { padding:20px;}
+.flow-trend-data { width:15%; height:26px;}
+.flow-trend-data select { width:100%; height:24px; line-height:24px; border:1px solid #dfdfdf; color:#252525; padding-left:10px;}
+.flow-trend-pic { width:100%; height:400px; background:#fafafa; margin-top:20px;}
+
+/*详情信息——流量分析*/
+.analysis-content { border:1px solid #dfdfdf; padding:20px;}
+.analysis-pic { width:100%; height:336px; background:#fafafa;}
+.flow-analysis { border:1px solid #dfdfdf; text-align:center; width:100%; margin-top:20px;}
+.flow-analysis tr { width:100%; height:38px; line-height:38px; cursor:pointer;}
+.flow-analysis td,.flow-analysis th { border-bottom:1px solid #dfdfdf; border-right:1px solid #dfdfdf;}
+.flow-analysis td.blue-text { color:#227ae5;}
+.flow-analysis td.red-text { color:#f00;}
+.flow-analysis th { background:#fafafa; }
+
+.a_1 { width:13%; cursor:pointer;}
+.a_2 { width:20.3%;}
+td.a_2 { color:#a4a4a4;}
+
+.ana_text { width:25%; height:24px; line-height:24px; border:1px solid #dfdfdf; border-radius:3px; margin-right:10px; padding:0 0 0 10px;}
+.flow-analysis td.current { background:#3b8cef; color:#fff;}
+tr.on { background:#3399ff; color:#fff;}
+tr.on td { color:#fff!important;}
+
+
+/*流量管理*/
+
+.advertising-siteManagement-tit {height:38px; line-height:38px; border:1px solid #dfdfdf; background:#f3f7fb; }
+.advertising-siteManagement-tit span { color:#f00; font-size:18px; margin-right:30px;  }
+.t1000-tit { border:none;}
+.flow-list { margin-top:0;}
+.dc_1 { width:23.4%;}
+.dc_2 { width:34.8%;}
+.detail-content .listManage td.blue-text { color:#227ae5;}
+.detail-content .listManage td.red-text { color:#f00;}
+.dc_3 a { text-decoration:underline; color:#227ae5}
+td.dc_2 { color:#05a527;}
+tr.on td a { color:#fff;}
+
+/*行业单品查询*/
+.detail-content-btn { height:26px; line-height:26px; width:55%;}
+.detail-content-btn .detail-search-btn { margin-right:10px;}
+.iq_1 { width:18.5%;}
+.iq_2 { width:28.8%;}
+.listManage td.green-text { color:#05a527;}
+.listManage tr.on td a.delete { color:#fff;}
+.ind-query-con .listManage th { font-size:14px; background:#f4f4f4;}
+.detail-content .listManage th { font-size:14px; background:#f4f4f4;}
+
+/*行业单品添加*/
+.ind_add tr,.ind_add td { height:58px; line-height:58px;}
+.ia_1 { width:25%;}
+.ind_add td.ia_2 { text-align:left;}
+.ia_2 select,.ia_2 input { width:30%; height:24px; line-height:24px; border:1px solid #dfdfdf; padding-left:10px; margin-left:4%; cursor:pointer; float:left; margin-top:7px;}
+.ia_2 input { border-radius:3px; width:29%;}
+.ia_2 span { color:#f00; float:left; margin:0 10px;}
+.ia_2 strong { width:10%; height:20px; background:url(../../images/league/flow/right.jpg) no-repeat left center; display:inline-block; padding-left:25px; font-size:12px; font-weight:normal; float:left; margin-top:9px;}
+.ind-add-btn { height:30px; margin:20px auto 0; width:200px;}
+.ind-add-btn .detail-search-btn { margin-right:10px;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

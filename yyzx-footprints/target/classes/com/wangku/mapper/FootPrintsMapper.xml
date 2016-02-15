@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangku.mapper.FootPrintsMapper" >
+  <resultMap id="BaseResultMap" type="FootPrints" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="member_name" property="memberName" jdbcType="VARCHAR" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="supply_id" property="supplyId" jdbcType="BIGINT" />
+    <result column="site_id" property="siteId" jdbcType="BIGINT" />
+    <result column="count" property="count" jdbcType="INTEGER" />
+    <result column="visit_time" property="visitTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, member_name, ip, supply_id, site_id, count, visit_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="FootPrints" >
+    select
+    <include refid="Base_Column_List" />
+    from tbl_footprints 
+    where 1=1 
+     <if test="footPrint.ip != null" >
+       and ip = #{footPrint.ip,jdbcType=VARCHAR}
+      </if>
+      <if test="footPrint.ip != null and footPrint.memberName !=null" >
+       and member_name = #{footPrint.memberName,jdbcType=BIGINT}
+      </if>
+       <if test="footPrint.siteId != null" >
+      and  site_id = #{footPrint.siteId,jdbcType=VARCHAR}
+      </if>
+       order by visit_time desc
+     limit  #{offset},#{pageSize}
+    
+  </select>
+  
+  <delete id="deleteByPrimaryId" parameterType="java.lang.Long" >
+    delete from tbl_footprints where id = #{id,jdbcType=BIGINT}
+   </delete>
+  
+  <insert id="insert" parameterType="FootPrints" >
+    insert into tbl_footprints (id, member_name, ip, 
+      supply_id, site_id, count, 
+      visit_time)
+    values (#{id,jdbcType=BIGINT}, #{memberName,jdbcType=BIGINT}, #{ip,jdbcType=VARCHAR}, 
+      #{supplyId,jdbcType=BIGINT}, #{siteId,jdbcType=BIGINT}, 1, 
+      #{visitTime,jdbcType=TIMESTAMP})
+  </insert>
+ 
+  <select id="countByExample" parameterType="FootPrints" resultType="java.lang.Integer" >
+    select count(*) from tbl_footprints
+    where 1=1  
+      <if test="memberName !=null and  memberName !=''" >
+       and member_name = #{memberName,jdbcType=BIGINT}
+      </if>
+      <if test="memberName ==null or memberName ==''" >
+     	 and ip = #{ip,jdbcType=VARCHAR}
+      </if>
+       <if test="supplyId != null" >
+      and  supply_id = #{supplyId,jdbcType=VARCHAR}
+      </if>
+  </select>
+
+  <update id="updateCount" parameterType="FootPrints" >
+    update tbl_footprints 
+    <set>
+       count = count+1,
+      <if test="visitTime != null" >
+        visit_time = #{visitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ip != null" >
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where supply_id = #{supplyId,jdbcType=BIGINT} 
+   	  <if test="memberName !=null and  memberName !=''" >
+       and member_name = #{memberName,jdbcType=BIGINT}
+      </if>
+      <if test="memberName ==null or memberName ==''" >
+        and ip = #{ip,jdbcType=VARCHAR}
+      </if>
+  </update>
+</mapper>

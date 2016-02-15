@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangku.mapper.LeagueAdvWordMapper" >
+  <resultMap id="BaseResultMap" type="com.wangku.entity.LeagueAdvWord" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="industry_id" property="industryId" jdbcType="BIGINT" />
+    <result column="adv_name" property="advName" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="target_url" property="targetUrl" jdbcType="VARCHAR" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+    <result column="on_flag" property="onFlag" jdbcType="INTEGER" />
+    <result column="red_flag" property="redFlag" jdbcType="INTEGER" />
+    <result column="order_num" property="orderNum" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, industry_id, adv_name, title, target_url, memo, on_flag, red_flag, order_num, 
+    create_time, start_time, end_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wangku.entity.LeagueAdvWordExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from league_adv_word
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from league_adv_word
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from league_adv_word
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.wangku.entity.LeagueAdvWordExample" >
+    delete from league_adv_word
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.wangku.entity.LeagueAdvWord" >
+    insert into league_adv_word (id, industry_id, adv_name, 
+      title, target_url, memo, 
+      on_flag, red_flag, order_num, 
+      create_time, start_time, end_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{industryId,jdbcType=BIGINT}, #{advName,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{targetUrl,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, 
+      #{onFlag,jdbcType=INTEGER}, #{redFlag,jdbcType=INTEGER}, #{orderNum,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wangku.entity.LeagueAdvWord" >
+    insert into league_adv_word
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="industryId != null" >
+        industry_id,
+      </if>
+      <if test="advName != null" >
+        adv_name,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="targetUrl != null" >
+        target_url,
+      </if>
+      <if test="memo != null" >
+        memo,
+      </if>
+      <if test="onFlag != null" >
+        on_flag,
+      </if>
+      <if test="redFlag != null" >
+        red_flag,
+      </if>
+      <if test="orderNum != null" >
+        order_num,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="industryId != null" >
+        #{industryId,jdbcType=BIGINT},
+      </if>
+      <if test="advName != null" >
+        #{advName,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="targetUrl != null" >
+        #{targetUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="onFlag != null" >
+        #{onFlag,jdbcType=INTEGER},
+      </if>
+      <if test="redFlag != null" >
+        #{redFlag,jdbcType=INTEGER},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.wangku.entity.LeagueAdvWordExample" resultType="java.lang.Integer" >
+    select count(*) from league_adv_word
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update league_adv_word
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.industryId != null" >
+        industry_id = #{record.industryId,jdbcType=BIGINT},
+      </if>
+      <if test="record.advName != null" >
+        adv_name = #{record.advName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.targetUrl != null" >
+        target_url = #{record.targetUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memo != null" >
+        memo = #{record.memo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.onFlag != null" >
+        on_flag = #{record.onFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.redFlag != null" >
+        red_flag = #{record.redFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderNum != null" >
+        order_num = #{record.orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.startTime != null" >
+        start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endTime != null" >
+        end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update league_adv_word
+    set id = #{record.id,jdbcType=BIGINT},
+      industry_id = #{record.industryId,jdbcType=BIGINT},
+      adv_name = #{record.advName,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      target_url = #{record.targetUrl,jdbcType=VARCHAR},
+      memo = #{record.memo,jdbcType=VARCHAR},
+      on_flag = #{record.onFlag,jdbcType=INTEGER},
+      red_flag = #{record.redFlag,jdbcType=INTEGER},
+      order_num = #{record.orderNum,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      end_time = #{record.endTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangku.entity.LeagueAdvWord" >
+    update league_adv_word
+    <set >
+      <if test="industryId != null" >
+        industry_id = #{industryId,jdbcType=BIGINT},
+      </if>
+      <if test="advName != null" >
+        adv_name = #{advName,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="targetUrl != null" >
+        target_url = #{targetUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        memo = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="onFlag != null" >
+        on_flag = #{onFlag,jdbcType=INTEGER},
+      </if>
+      <if test="redFlag != null" >
+        red_flag = #{redFlag,jdbcType=INTEGER},
+      </if>
+      <if test="orderNum != null" >
+        order_num = #{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangku.entity.LeagueAdvWord" >
+    update league_adv_word
+    set industry_id = #{industryId,jdbcType=BIGINT},
+      adv_name = #{advName,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      target_url = #{targetUrl,jdbcType=VARCHAR},
+      memo = #{memo,jdbcType=VARCHAR},
+      on_flag = #{onFlag,jdbcType=INTEGER},
+      red_flag = #{redFlag,jdbcType=INTEGER},
+      order_num = #{orderNum,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <!-- 自定义SQL -->
+	<!-- 条件分页查询图片广告列表 -->
+	<select id="queryAdvWordsByKeywordPaged" resultType="com.wangku.entity.LeagueAdvWord">
+		select param.param_name industryName,
+		word.id id,word.industry_id industryId,word.adv_name advName,word.title title,
+		word.target_url targetUrl,word.memo memo,
+		(case when (DATE_FORMAT(word.start_time,'%Y-%m-%d') > DATE_FORMAT(SYSDATE(),'%Y-%m-%d')) then 1
+					when (DATE_FORMAT(word.end_time,'%Y-%m-%d') &lt; DATE_FORMAT(SYSDATE(),'%Y-%m-%d')) then 0		
+					else  2 end )onFlag,
+		word.red_flag redFlag,
+		word.order_num orderNum,word.create_time createTime,word.start_time startTime,
+		word.end_time endTime
+		from league_adv_word word
+		left join league_pram param on word.industry_id = param.id
+		where 1=1
+		<if test="industryId != null">
+			and word.industry_id = #{industryId,jdbcType=BIGINT}
+		</if>
+		<if test="titleKeyWod != null">
+			and word.title like #{titleKeyWod,jdbcType=VARCHAR}
+		</if>
+		ORDER BY 
+		word.start_time DESC
+		<if test="industryId != null">
+			,word.order_num
+		</if>
+		limit #{offsetValue,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+	</select>
+	
+	<!-- 条件分页查询图片广告列表的记录数 -->
+	<select id="queryAdvWordsByKeywordPagedCount" resultType="java.lang.Integer">
+		select count(*)
+		from league_adv_word word
+		left join league_pram param on word.industry_id = param.id
+		where 1=1
+		<if test="industryId != null">
+			and word.industry_id = #{industryId,jdbcType=BIGINT}
+		</if>
+		<if test="titleKeyWod != null">
+			and word.title like #{titleKeyWod,jdbcType=VARCHAR}
+		</if>
+	</select>
+	
+	<!-- 文字广告查看页数据集合 -->
+	<select id="queryAdvWordsByIndustryIdAndAdvName" resultType="com.wangku.entity.LeagueAdvWord">
+		select param.param_name industryName,
+		word.id id,word.industry_id industryId,word.adv_name advName,word.title title,
+		word.target_url targetUrl,word.memo memo,word.on_flag onFlag,word.red_flag redFlag,
+		word.order_num orderNum,word.create_time createTime,word.start_time startTime,
+		word.end_time endTime
+		from league_adv_word word
+		left join league_pram param on word.industry_id = param.id
+		where word.industry_id = #{industryId,jdbcType=BIGINT} and
+      	word.adv_name = #{advName,jdbcType=VARCHAR}
+	</select>
+
+
+	<!-- 查询文字广告-用于单品网展示的文字广告记录 -->
+	<select id="queryWordAdvOnFlag" resultMap="BaseResultMap">
+		select a.* from 
+		(select 
+		*
+		from league_adv_word 
+		WHERE ( industry_id = #{industryId,jdbcType=BIGINT} and
+		DATE_FORMAT(start_time,'%Y-%m-%d') &lt;= DATE_FORMAT(SYSDATE(),'%Y-%m-%d')                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+		and DATE_FORMAT(end_time,'%Y-%m-%d') >= DATE_FORMAT(SYSDATE(),'%Y-%m-%d') )
+		order by start_time DESC
+		limit 0, #{dataNum,jdbcType=INTEGER}) a
+		order by order_num
+	</select>
+	
+	<!-- 修改文字广告的排序号 -->
+	<update id="updateWordAdvOrder">
+	  update league_adv_word
+	  set order_num = #{orderNum,jdbcType=INTEGER}
+      where id = #{id,jdbcType=BIGINT}
+  	</update>
+</mapper>

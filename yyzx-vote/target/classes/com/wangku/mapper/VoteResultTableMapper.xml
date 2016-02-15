@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangku.mapper.VoteResultTableMapper" >
+  <resultMap id="BaseResultMap" type="com.wangku.entity.VoteResultTable" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="vi_id" property="viId" jdbcType="BIGINT" />
+    <result column="v_id" property="vId" jdbcType="BIGINT" />
+    <result column="ip_add" property="ipAdd" jdbcType="VARCHAR" />
+    <result column="ip_name" property="ipName" jdbcType="VARCHAR" />
+    <result column="vote_add_time" property="voteAddTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, vi_id, v_id, ip_add, ip_name, vote_add_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wangku.entity.VoteResultTableExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from vote_result_table
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from vote_result_table
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from vote_result_table
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.wangku.entity.VoteResultTableExample" >
+    delete from vote_result_table
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.wangku.entity.VoteResultTable" >
+    insert into vote_result_table (id, vi_id, v_id, ip_add, 
+      ip_name, vote_add_time)
+    values (#{id,jdbcType=BIGINT}, #{viId,jdbcType=BIGINT}, #{vId,jdbcType=BIGINT}, #{ipAdd,jdbcType=VARCHAR}, 
+      #{ipName,jdbcType=VARCHAR}, #{voteAddTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wangku.entity.VoteResultTable" >
+    insert into vote_result_table
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="viId != null" >
+        vi_id,
+      </if>
+      <if test="vId != null" >
+        v_id,
+      </if>
+      <if test="ipAdd != null" >
+        ip_add,
+      </if>
+      <if test="ipName != null" >
+        ip_name,
+      </if>
+      <if test="voteAddTime != null" >
+        vote_add_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="viId != null" >
+        #{viId,jdbcType=BIGINT},
+      </if>
+      <if test="vId != null" >
+        #{vId,jdbcType=BIGINT},
+      </if>
+      <if test="ipAdd != null" >
+        #{ipAdd,jdbcType=VARCHAR},
+      </if>
+      <if test="ipName != null" >
+        #{ipName,jdbcType=VARCHAR},
+      </if>
+      <if test="voteAddTime != null" >
+        #{voteAddTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.wangku.entity.VoteResultTableExample" resultType="java.lang.Integer" >
+    select count(*) from vote_result_table
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update vote_result_table
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.viId != null" >
+        vi_id = #{record.viId,jdbcType=BIGINT},
+      </if>
+      <if test="record.vId != null" >
+        v_id = #{record.vId,jdbcType=BIGINT},
+      </if>
+      <if test="record.ipAdd != null" >
+        ip_add = #{record.ipAdd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ipName != null" >
+        ip_name = #{record.ipName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.voteAddTime != null" >
+        vote_add_time = #{record.voteAddTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update vote_result_table
+    set id = #{record.id,jdbcType=BIGINT},
+      vi_id = #{record.viId,jdbcType=BIGINT},
+      v_id = #{record.vId,jdbcType=BIGINT},
+      ip_add = #{record.ipAdd,jdbcType=VARCHAR},
+      ip_name = #{record.ipName,jdbcType=VARCHAR},
+      vote_add_time = #{record.voteAddTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangku.entity.VoteResultTable" >
+    update vote_result_table
+    <set >
+      <if test="viId != null" >
+        vi_id = #{viId,jdbcType=BIGINT},
+      </if>
+      <if test="vId != null" >
+        v_id = #{vId,jdbcType=BIGINT},
+      </if>
+      <if test="ipAdd != null" >
+        ip_add = #{ipAdd,jdbcType=VARCHAR},
+      </if>
+      <if test="ipName != null" >
+        ip_name = #{ipName,jdbcType=VARCHAR},
+      </if>
+      <if test="voteAddTime != null" >
+        vote_add_time = #{voteAddTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangku.entity.VoteResultTable" >
+    update vote_result_table
+    set vi_id = #{viId,jdbcType=BIGINT},
+      v_id = #{vId,jdbcType=BIGINT},
+      ip_add = #{ipAdd,jdbcType=VARCHAR},
+      ip_name = #{ipName,jdbcType=VARCHAR},
+      vote_add_time = #{voteAddTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

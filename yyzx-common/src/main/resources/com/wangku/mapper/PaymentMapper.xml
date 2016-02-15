@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangku.mapper.PaymentMapper" >
+  <resultMap id="BaseResultMap" type="com.wangku.entity.Payment" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="purcher_id" property="purcherId" jdbcType="INTEGER" />
+    <result column="adv_code" property="advCode" jdbcType="VARCHAR" />
+    <result column="subject" property="subject" jdbcType="VARCHAR" />
+    <result column="body" property="body" jdbcType="VARCHAR" />
+    <result column="goods_type" property="goodsType" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="total_fee" property="totalFee" jdbcType="DECIMAL" />
+    <result column="quantity" property="quantity" jdbcType="INTEGER" />
+    <result column="out_trade_no" property="outTradeNo" jdbcType="VARCHAR" />
+    <result column="trade_no" property="tradeNo" jdbcType="VARCHAR" />
+    <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+    <result column="success_flag" property="successFlag" jdbcType="VARCHAR" />
+    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="common1" property="common1" jdbcType="VARCHAR" />
+    <result column="common2" property="common2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, user_id, purcher_id, adv_code, subject, body, goods_type, price, total_fee, quantity, 
+    out_trade_no, trade_no, pay_time, success_flag, telephone, start_time, end_time, 
+    common1, common2
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wangku.entity.PaymentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from payment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from payment
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from payment
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.wangku.entity.PaymentExample" >
+    delete from payment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.wangku.entity.Payment" >
+    insert into payment (id, user_id, purcher_id, 
+      adv_code, subject, body, 
+      goods_type, price, total_fee, 
+      quantity, out_trade_no, trade_no, 
+      pay_time, success_flag, telephone, 
+      start_time, end_time, common1, 
+      common2)
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{purcherId,jdbcType=INTEGER}, 
+      #{advCode,jdbcType=VARCHAR}, #{subject,jdbcType=VARCHAR}, #{body,jdbcType=VARCHAR}, 
+      #{goodsType,jdbcType=INTEGER}, #{price,jdbcType=DECIMAL}, #{totalFee,jdbcType=DECIMAL}, 
+      #{quantity,jdbcType=INTEGER}, #{outTradeNo,jdbcType=VARCHAR}, #{tradeNo,jdbcType=VARCHAR}, 
+      #{payTime,jdbcType=TIMESTAMP}, #{successFlag,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{common1,jdbcType=VARCHAR}, 
+      #{common2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wangku.entity.Payment" >
+    insert into payment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="purcherId != null" >
+        purcher_id,
+      </if>
+      <if test="advCode != null" >
+        adv_code,
+      </if>
+      <if test="subject != null" >
+        subject,
+      </if>
+      <if test="body != null" >
+        body,
+      </if>
+      <if test="goodsType != null" >
+        goods_type,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="totalFee != null" >
+        total_fee,
+      </if>
+      <if test="quantity != null" >
+        quantity,
+      </if>
+      <if test="outTradeNo != null" >
+        out_trade_no,
+      </if>
+      <if test="tradeNo != null" >
+        trade_no,
+      </if>
+      <if test="payTime != null" >
+        pay_time,
+      </if>
+      <if test="successFlag != null" >
+        success_flag,
+      </if>
+      <if test="telephone != null" >
+        telephone,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="common1 != null" >
+        common1,
+      </if>
+      <if test="common2 != null" >
+        common2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="purcherId != null" >
+        #{purcherId,jdbcType=INTEGER},
+      </if>
+      <if test="advCode != null" >
+        #{advCode,jdbcType=VARCHAR},
+      </if>
+      <if test="subject != null" >
+        #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="body != null" >
+        #{body,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsType != null" >
+        #{goodsType,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="totalFee != null" >
+        #{totalFee,jdbcType=DECIMAL},
+      </if>
+      <if test="quantity != null" >
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="outTradeNo != null" >
+        #{outTradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeNo != null" >
+        #{tradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="payTime != null" >
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="successFlag != null" >
+        #{successFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="common1 != null" >
+        #{common1,jdbcType=VARCHAR},
+      </if>
+      <if test="common2 != null" >
+        #{common2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.wangku.entity.PaymentExample" resultType="java.lang.Integer" >
+    select count(*) from payment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update payment
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.purcherId != null" >
+        purcher_id = #{record.purcherId,jdbcType=INTEGER},
+      </if>
+      <if test="record.advCode != null" >
+        adv_code = #{record.advCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subject != null" >
+        subject = #{record.subject,jdbcType=VARCHAR},
+      </if>
+      <if test="record.body != null" >
+        body = #{record.body,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsType != null" >
+        goods_type = #{record.goodsType,jdbcType=INTEGER},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.totalFee != null" >
+        total_fee = #{record.totalFee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.quantity != null" >
+        quantity = #{record.quantity,jdbcType=INTEGER},
+      </if>
+      <if test="record.outTradeNo != null" >
+        out_trade_no = #{record.outTradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tradeNo != null" >
+        trade_no = #{record.tradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payTime != null" >
+        pay_time = #{record.payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.successFlag != null" >
+        success_flag = #{record.successFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.telephone != null" >
+        telephone = #{record.telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startTime != null" >
+        start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endTime != null" >
+        end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.common1 != null" >
+        common1 = #{record.common1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.common2 != null" >
+        common2 = #{record.common2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update payment
+    set id = #{record.id,jdbcType=BIGINT},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      purcher_id = #{record.purcherId,jdbcType=INTEGER},
+      adv_code = #{record.advCode,jdbcType=VARCHAR},
+      subject = #{record.subject,jdbcType=VARCHAR},
+      body = #{record.body,jdbcType=VARCHAR},
+      goods_type = #{record.goodsType,jdbcType=INTEGER},
+      price = #{record.price,jdbcType=DECIMAL},
+      total_fee = #{record.totalFee,jdbcType=DECIMAL},
+      quantity = #{record.quantity,jdbcType=INTEGER},
+      out_trade_no = #{record.outTradeNo,jdbcType=VARCHAR},
+      trade_no = #{record.tradeNo,jdbcType=VARCHAR},
+      pay_time = #{record.payTime,jdbcType=TIMESTAMP},
+      success_flag = #{record.successFlag,jdbcType=VARCHAR},
+      telephone = #{record.telephone,jdbcType=VARCHAR},
+      start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      common1 = #{record.common1,jdbcType=VARCHAR},
+      common2 = #{record.common2,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangku.entity.Payment" >
+    update payment
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="purcherId != null" >
+        purcher_id = #{purcherId,jdbcType=INTEGER},
+      </if>
+      <if test="advCode != null" >
+        adv_code = #{advCode,jdbcType=VARCHAR},
+      </if>
+      <if test="subject != null" >
+        subject = #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="body != null" >
+        body = #{body,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsType != null" >
+        goods_type = #{goodsType,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="totalFee != null" >
+        total_fee = #{totalFee,jdbcType=DECIMAL},
+      </if>
+      <if test="quantity != null" >
+        quantity = #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="outTradeNo != null" >
+        out_trade_no = #{outTradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeNo != null" >
+        trade_no = #{tradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="payTime != null" >
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="successFlag != null" >
+        success_flag = #{successFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="common1 != null" >
+        common1 = #{common1,jdbcType=VARCHAR},
+      </if>
+      <if test="common2 != null" >
+        common2 = #{common2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangku.entity.Payment" >
+    update payment
+    set user_id = #{userId,jdbcType=BIGINT},
+      purcher_id = #{purcherId,jdbcType=INTEGER},
+      adv_code = #{advCode,jdbcType=VARCHAR},
+      subject = #{subject,jdbcType=VARCHAR},
+      body = #{body,jdbcType=VARCHAR},
+      goods_type = #{goodsType,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL},
+      total_fee = #{totalFee,jdbcType=DECIMAL},
+      quantity = #{quantity,jdbcType=INTEGER},
+      out_trade_no = #{outTradeNo,jdbcType=VARCHAR},
+      trade_no = #{tradeNo,jdbcType=VARCHAR},
+      pay_time = #{payTime,jdbcType=TIMESTAMP},
+      success_flag = #{successFlag,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      common1 = #{common1,jdbcType=VARCHAR},
+      common2 = #{common2,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

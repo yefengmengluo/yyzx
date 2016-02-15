@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangku.mapper.CompanyMapper" >
+  <resultMap id="BaseResultMap" type="com.wangku.entity.Company" >
+    <id column="cop_id" property="copId" jdbcType="BIGINT" />
+    <result column="cop_name" property="copName" jdbcType="VARCHAR" />
+    <result column="cop_brand" property="copBrand" jdbcType="VARCHAR" />
+    <result column="industry" property="industry" jdbcType="INTEGER" />
+    <result column="cop_url" property="copUrl" jdbcType="VARCHAR" />
+    <result column="cop_address" property="copAddress" jdbcType="VARCHAR" />
+    <result column="brand_industry" property="brandIndustry" jdbcType="VARCHAR" />
+    <result column="cop_summary" property="copSummary" jdbcType="VARCHAR" />
+    <result column="cop_events" property="copEvents" jdbcType="VARCHAR" />
+    <result column="logo" property="logo" jdbcType="VARCHAR" />
+    <result column="weixin_pic" property="weixinPic" jdbcType="VARCHAR" />
+    <result column="weibo_pic" property="weiboPic" jdbcType="VARCHAR" />
+    <result column="erweima_pic" property="erweimaPic" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="vi_id" property="viId" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    
+    <result column="voteName" property="voteName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    cop_id, cop_name, cop_brand, industry, cop_url, cop_address, brand_industry, cop_summary, 
+    cop_events, logo, weixin_pic, weibo_pic, erweima_pic, add_time, status, vi_id, user_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wangku.entity.CompanyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from vote_company
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from vote_company
+    where cop_id = #{copId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from vote_company
+    where cop_id = #{copId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.wangku.entity.CompanyExample" >
+    delete from vote_company
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.wangku.entity.Company" >
+    insert into vote_company (cop_id, cop_name, cop_brand, 
+      industry, cop_url, cop_address, 
+      brand_industry, cop_summary, cop_events, 
+      logo, weixin_pic, weibo_pic, 
+      erweima_pic, add_time, status, 
+      vi_id, user_id)
+    values (#{copId,jdbcType=BIGINT}, #{copName,jdbcType=VARCHAR}, #{copBrand,jdbcType=VARCHAR}, 
+      #{industry,jdbcType=INTEGER}, #{copUrl,jdbcType=VARCHAR}, #{copAddress,jdbcType=VARCHAR}, 
+      #{brandIndustry,jdbcType=VARCHAR}, #{copSummary,jdbcType=VARCHAR}, #{copEvents,jdbcType=VARCHAR}, 
+      #{logo,jdbcType=VARCHAR}, #{weixinPic,jdbcType=VARCHAR}, #{weiboPic,jdbcType=VARCHAR}, 
+      #{erweimaPic,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, 
+      #{viId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wangku.entity.Company" >
+    insert into vote_company
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="copId != null" >
+        cop_id,
+      </if>
+      <if test="copName != null" >
+        cop_name,
+      </if>
+      <if test="copBrand != null" >
+        cop_brand,
+      </if>
+      <if test="industry != null" >
+        industry,
+      </if>
+      <if test="copUrl != null" >
+        cop_url,
+      </if>
+      <if test="copAddress != null" >
+        cop_address,
+      </if>
+      <if test="brandIndustry != null" >
+        brand_industry,
+      </if>
+      <if test="copSummary != null" >
+        cop_summary,
+      </if>
+      <if test="copEvents != null" >
+        cop_events,
+      </if>
+      <if test="logo != null" >
+        logo,
+      </if>
+      <if test="weixinPic != null" >
+        weixin_pic,
+      </if>
+      <if test="weiboPic != null" >
+        weibo_pic,
+      </if>
+      <if test="erweimaPic != null" >
+        erweima_pic,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="viId != null" >
+        vi_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="copId != null" >
+        #{copId,jdbcType=BIGINT},
+      </if>
+      <if test="copName != null" >
+        #{copName,jdbcType=VARCHAR},
+      </if>
+      <if test="copBrand != null" >
+        #{copBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null" >
+        #{industry,jdbcType=INTEGER},
+      </if>
+      <if test="copUrl != null" >
+        #{copUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="copAddress != null" >
+        #{copAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="brandIndustry != null" >
+        #{brandIndustry,jdbcType=VARCHAR},
+      </if>
+      <if test="copSummary != null" >
+        #{copSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="copEvents != null" >
+        #{copEvents,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null" >
+        #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="weixinPic != null" >
+        #{weixinPic,jdbcType=VARCHAR},
+      </if>
+      <if test="weiboPic != null" >
+        #{weiboPic,jdbcType=VARCHAR},
+      </if>
+      <if test="erweimaPic != null" >
+        #{erweimaPic,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="viId != null" >
+        #{viId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.wangku.entity.CompanyExample" resultType="java.lang.Integer" >
+    select count(*) from vote_company
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update vote_company
+    <set >
+      <if test="record.copId != null" >
+        cop_id = #{record.copId,jdbcType=BIGINT},
+      </if>
+      <if test="record.copName != null" >
+        cop_name = #{record.copName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.copBrand != null" >
+        cop_brand = #{record.copBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="record.industry != null" >
+        industry = #{record.industry,jdbcType=INTEGER},
+      </if>
+      <if test="record.copUrl != null" >
+        cop_url = #{record.copUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.copAddress != null" >
+        cop_address = #{record.copAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brandIndustry != null" >
+        brand_industry = #{record.brandIndustry,jdbcType=VARCHAR},
+      </if>
+      <if test="record.copSummary != null" >
+        cop_summary = #{record.copSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.copEvents != null" >
+        cop_events = #{record.copEvents,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logo != null" >
+        logo = #{record.logo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weixinPic != null" >
+        weixin_pic = #{record.weixinPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weiboPic != null" >
+        weibo_pic = #{record.weiboPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.erweimaPic != null" >
+        erweima_pic = #{record.erweimaPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addTime != null" >
+        add_time = #{record.addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.viId != null" >
+        vi_id = #{record.viId,jdbcType=BIGINT},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update vote_company
+    set cop_id = #{record.copId,jdbcType=BIGINT},
+      cop_name = #{record.copName,jdbcType=VARCHAR},
+      cop_brand = #{record.copBrand,jdbcType=VARCHAR},
+      industry = #{record.industry,jdbcType=INTEGER},
+      cop_url = #{record.copUrl,jdbcType=VARCHAR},
+      cop_address = #{record.copAddress,jdbcType=VARCHAR},
+      brand_industry = #{record.brandIndustry,jdbcType=VARCHAR},
+      cop_summary = #{record.copSummary,jdbcType=VARCHAR},
+      cop_events = #{record.copEvents,jdbcType=VARCHAR},
+      logo = #{record.logo,jdbcType=VARCHAR},
+      weixin_pic = #{record.weixinPic,jdbcType=VARCHAR},
+      weibo_pic = #{record.weiboPic,jdbcType=VARCHAR},
+      erweima_pic = #{record.erweimaPic,jdbcType=VARCHAR},
+      add_time = #{record.addTime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=INTEGER},
+      vi_id = #{record.viId,jdbcType=BIGINT},
+      user_id = #{record.userId,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangku.entity.Company" >
+    update vote_company
+    <set >
+      <if test="copName != null" >
+        cop_name = #{copName,jdbcType=VARCHAR},
+      </if>
+      <if test="copBrand != null" >
+        cop_brand = #{copBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null" >
+        industry = #{industry,jdbcType=INTEGER},
+      </if>
+      <if test="copUrl != null" >
+        cop_url = #{copUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="copAddress != null" >
+        cop_address = #{copAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="brandIndustry != null" >
+        brand_industry = #{brandIndustry,jdbcType=VARCHAR},
+      </if>
+      <if test="copSummary != null" >
+        cop_summary = #{copSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="copEvents != null" >
+        cop_events = #{copEvents,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null" >
+        logo = #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="weixinPic != null" >
+        weixin_pic = #{weixinPic,jdbcType=VARCHAR},
+      </if>
+      <if test="weiboPic != null" >
+        weibo_pic = #{weiboPic,jdbcType=VARCHAR},
+      </if>
+      <if test="erweimaPic != null" >
+        erweima_pic = #{erweimaPic,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="viId != null" >
+        vi_id = #{viId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where cop_id = #{copId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangku.entity.Company" >
+    update vote_company
+    set cop_name = #{copName,jdbcType=VARCHAR},
+      cop_brand = #{copBrand,jdbcType=VARCHAR},
+      industry = #{industry,jdbcType=INTEGER},
+      cop_url = #{copUrl,jdbcType=VARCHAR},
+      cop_address = #{copAddress,jdbcType=VARCHAR},
+      brand_industry = #{brandIndustry,jdbcType=VARCHAR},
+      cop_summary = #{copSummary,jdbcType=VARCHAR},
+      cop_events = #{copEvents,jdbcType=VARCHAR},
+      logo = #{logo,jdbcType=VARCHAR},
+      weixin_pic = #{weixinPic,jdbcType=VARCHAR},
+      weibo_pic = #{weiboPic,jdbcType=VARCHAR},
+      erweima_pic = #{erweimaPic,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      vi_id = #{viId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT}
+    where cop_id = #{copId,jdbcType=BIGINT}
+  </update>
+  <!-- 批量修改投票状态 -->
+  <update id="modifyCompanyStatus">
+  	 update vote_company set status = #{status,jdbcType=INTEGER} where cop_id in 
+  	 <foreach collection="idList" item="listItem" open="(" close=")" separator="," >
+         #{listItem}
+     </foreach>
+  </update>
+  
+  <!-- 分页查询 -->
+  <select id="queryByPage" resultMap="BaseResultMap">
+  select 
+  cop.cop_id, 
+  cop.cop_name, 
+  cop.cop_brand, 
+  cop.industry, 
+  cop.cop_url, 
+  cop.cop_address, 
+  cop.brand_industry, 
+  cop.cop_summary, 
+  cop.cop_events, 
+  cop.logo, 
+  cop.weixin_pic, 
+  cop.weibo_pic, 
+  cop.erweima_pic, 
+  cop.add_time, 
+  cop.status, 
+  cop.vi_id, 
+  cop.user_id,
+  
+  vt.v_subject voteName
+  from vote_company cop
+  join vote_item_table i on cop.vi_id = i.id
+  left join vote_table vt on i.v_id = vt.id
+  where cop.cop_name like #{keyWord}
+  <if test="userId != null" >
+     and cop.user_id = #{userId}
+  </if>
+  order by cop.status,cop.add_time desc 
+  limit #{offsetValue},#{pageSize}
+  
+  </select>
+  <!-- 根据会员id集合删除投票选项数据 -->
+  <delete id="deleteVoteItem">
+  	delete from vote_item_table
+  	where id in 
+  	(select vi_id from vote_company where cop_id in
+  		<foreach collection="idList" item="listItem" open="(" close=")" separator="," >
+         #{listItem}
+     	</foreach>
+  	)
+  </delete>
+</mapper>

@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangku.mapper.VoteItemTableMapper" >
+  <resultMap id="BaseResultMap" type="com.wangku.entity.VoteItemTable" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="v_id" property="vId" jdbcType="BIGINT" />
+    <result column="item_sort" property="itemSort" jdbcType="INTEGER" />
+    <result column="item_last_sort" property="itemLastSort" jdbcType="INTEGER" />
+    <result column="vd_title" property="vdTitle" jdbcType="VARCHAR" />
+    <result column="vd_count" property="vdCount" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.wangku.entity.VoteItemTableWithBLOBs" extends="BaseResultMap" >
+    <result column="vd_detail" property="vdDetail" jdbcType="LONGVARCHAR" />
+    <result column="vd_other" property="vdOther" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, v_id, item_sort, item_last_sort, vd_title, vd_count
+  </sql>
+  <sql id="Blob_Column_List" >
+    vd_detail, vd_other
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.wangku.entity.VoteItemTableExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from vote_item_table
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wangku.entity.VoteItemTableExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from vote_item_table
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from vote_item_table
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from vote_item_table
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.wangku.entity.VoteItemTableExample" >
+    delete from vote_item_table
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.wangku.entity.VoteItemTableWithBLOBs" >
+    insert into vote_item_table (id, v_id, item_sort, 
+      item_last_sort, vd_title, vd_count, 
+      vd_detail, vd_other)
+    values (#{id,jdbcType=BIGINT}, #{vId,jdbcType=BIGINT}, #{itemSort,jdbcType=INTEGER}, 
+      #{itemLastSort,jdbcType=INTEGER}, #{vdTitle,jdbcType=VARCHAR}, #{vdCount,jdbcType=INTEGER}, 
+      #{vdDetail,jdbcType=LONGVARCHAR}, #{vdOther,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wangku.entity.VoteItemTableWithBLOBs" >
+    insert into vote_item_table
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="vId != null" >
+        v_id,
+      </if>
+      <if test="itemSort != null" >
+        item_sort,
+      </if>
+      <if test="itemLastSort != null" >
+        item_last_sort,
+      </if>
+      <if test="vdTitle != null" >
+        vd_title,
+      </if>
+      <if test="vdCount != null" >
+        vd_count,
+      </if>
+      <if test="vdDetail != null" >
+        vd_detail,
+      </if>
+      <if test="vdOther != null" >
+        vd_other,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="vId != null" >
+        #{vId,jdbcType=BIGINT},
+      </if>
+      <if test="itemSort != null" >
+        #{itemSort,jdbcType=INTEGER},
+      </if>
+      <if test="itemLastSort != null" >
+        #{itemLastSort,jdbcType=INTEGER},
+      </if>
+      <if test="vdTitle != null" >
+        #{vdTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="vdCount != null" >
+        #{vdCount,jdbcType=INTEGER},
+      </if>
+      <if test="vdDetail != null" >
+        #{vdDetail,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="vdOther != null" >
+        #{vdOther,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.wangku.entity.VoteItemTableExample" resultType="java.lang.Integer" >
+    select count(*) from vote_item_table
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update vote_item_table
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.vId != null" >
+        v_id = #{record.vId,jdbcType=BIGINT},
+      </if>
+      <if test="record.itemSort != null" >
+        item_sort = #{record.itemSort,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemLastSort != null" >
+        item_last_sort = #{record.itemLastSort,jdbcType=INTEGER},
+      </if>
+      <if test="record.vdTitle != null" >
+        vd_title = #{record.vdTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vdCount != null" >
+        vd_count = #{record.vdCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.vdDetail != null" >
+        vd_detail = #{record.vdDetail,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.vdOther != null" >
+        vd_other = #{record.vdOther,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update vote_item_table
+    set id = #{record.id,jdbcType=BIGINT},
+      v_id = #{record.vId,jdbcType=BIGINT},
+      item_sort = #{record.itemSort,jdbcType=INTEGER},
+      item_last_sort = #{record.itemLastSort,jdbcType=INTEGER},
+      vd_title = #{record.vdTitle,jdbcType=VARCHAR},
+      vd_count = #{record.vdCount,jdbcType=INTEGER},
+      vd_detail = #{record.vdDetail,jdbcType=LONGVARCHAR},
+      vd_other = #{record.vdOther,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update vote_item_table
+    set id = #{record.id,jdbcType=BIGINT},
+      v_id = #{record.vId,jdbcType=BIGINT},
+      item_sort = #{record.itemSort,jdbcType=INTEGER},
+      item_last_sort = #{record.itemLastSort,jdbcType=INTEGER},
+      vd_title = #{record.vdTitle,jdbcType=VARCHAR},
+      vd_count = #{record.vdCount,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangku.entity.VoteItemTableWithBLOBs" >
+    update vote_item_table
+    <set >
+      <if test="vId != null" >
+        v_id = #{vId,jdbcType=BIGINT},
+      </if>
+      <if test="itemSort != null" >
+        item_sort = #{itemSort,jdbcType=INTEGER},
+      </if>
+      <if test="itemLastSort != null" >
+        item_last_sort = #{itemLastSort,jdbcType=INTEGER},
+      </if>
+      <if test="vdTitle != null" >
+        vd_title = #{vdTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="vdCount != null" >
+        vd_count = #{vdCount,jdbcType=INTEGER},
+      </if>
+      <if test="vdDetail != null" >
+        vd_detail = #{vdDetail,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="vdOther != null" >
+        vd_other = #{vdOther,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.wangku.entity.VoteItemTableWithBLOBs" >
+    update vote_item_table
+    set v_id = #{vId,jdbcType=BIGINT},
+      item_sort = #{itemSort,jdbcType=INTEGER},
+      item_last_sort = #{itemLastSort,jdbcType=INTEGER},
+      vd_title = #{vdTitle,jdbcType=VARCHAR},
+      vd_count = #{vdCount,jdbcType=INTEGER},
+      vd_detail = #{vdDetail,jdbcType=LONGVARCHAR},
+      vd_other = #{vdOther,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangku.entity.VoteItemTable" >
+    update vote_item_table
+    set v_id = #{vId,jdbcType=BIGINT},
+      item_sort = #{itemSort,jdbcType=INTEGER},
+      item_last_sort = #{itemLastSort,jdbcType=INTEGER},
+      vd_title = #{vdTitle,jdbcType=VARCHAR},
+      vd_count = #{vdCount,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+	<!-- 根据会员id集合修改投票选项主题id(信息推荐 ) -->
+	<update id="modifyItemVoteIdByCopIdList">
+		update vote_item_table set v_id = #{voteId} where id in
+
+		(select vi_id from vote_company where cop_id in
+		<foreach collection="copIdList" item="listItem" open="("
+			close=")" separator=",">
+			#{listItem}
+		</foreach>
+		)
+
+	</update>
+	<!-- 分页查询 -->
+	<select id="queryByPage" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from vote_item_table
+		where vd_title like #{keyWord} and v_id = #{voteId}
+		order by item_sort
+		limit #{offsetValue},#{pageSize}
+	</select>
+	<!-- 根据投票选项id集合删除会员信息 -->
+	<update id="modifyCompanyStatusByItemIdList">
+		update vote_company set status = #{status} where vi_id in 
+		<foreach collection="viidList" item="listItem" open="("
+			close=")" separator=",">
+			#{listItem}
+		</foreach>
+	</update>
+	<!-- 将主题id滞空 -->
+	<update id="modifyItemByItemIdList">
+		update vote_item_table set v_id = null,item_sort = null,item_last_sort = null,vd_count =0 where id in
+		<foreach collection="viidList" item="listItem" open="("
+			close=")" separator=",">
+			#{listItem}
+		</foreach> 
+	</update>
+	
+	<!-- 根据投票选项id集合查询会员信息集合 -->
+	<select id="queryCompanyByViidList" resultType="com.wangku.entity.Company">
+		select * from vote_company where vi_id in 
+		<foreach collection="viidList" item="listItem" open="("
+			close=")" separator=",">
+			#{listItem}
+		</foreach>
+	</select>
+	<!-- 修改票数 -->
+	<update id="modifyCount">
+		update vote_item_table set vd_count = #{vdCount} where id = #{id}
+	</update>
+	<!-- 根据主题ID查询品牌id集合 -->
+	<select id="queryItemByVid" resultType="java.lang.Long">
+		select id from vote_item_table where v_id = #{vId}
+	</select>
+</mapper>

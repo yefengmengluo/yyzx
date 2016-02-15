@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangku.mapper.MemberBasicMapper" >
+  <resultMap id="BaseResultMap" type="com.wangku.entity.MemberBasic" >
+    <id column="member_id" property="memberId" jdbcType="BIGINT" />
+    <result column="corporation_name" property="corporationName" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="site_id" property="siteId" jdbcType="INTEGER" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="logo" property="logo" jdbcType="VARCHAR" />
+    <result column="fax" property="fax" jdbcType="VARCHAR" />
+    <result column="enroll_id" property="enrollId" jdbcType="VARCHAR" />
+    <result column="deal_in_id" property="dealInId" jdbcType="VARCHAR" />
+    <result column="category_code" property="categoryCode" jdbcType="VARCHAR" />
+    <result column="summary" property="summary" jdbcType="VARCHAR" />
+    <result column="picture_url" property="pictureUrl" jdbcType="VARCHAR" />
+    <result column="reg_number" property="regNumber" jdbcType="VARCHAR" />
+    <result column="help_id" property="helpId" jdbcType="VARCHAR" />
+    <result column="en_name" property="enName" jdbcType="VARCHAR" />
+    <result column="accredit_number" property="accreditNumber" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="icp" property="icp" jdbcType="VARCHAR" />
+    <result column="artificial_person" property="artificialPerson" jdbcType="VARCHAR" />
+    <result column="traffic_url" property="trafficUrl" jdbcType="VARCHAR" />
+    <result column="traffic_Info" property="trafficInfo" jdbcType="VARCHAR" />
+    <result column="deal_in_address" property="dealInAddress" jdbcType="VARCHAR" />
+    <result column="deal_in_Area_code" property="dealInAreaCode" jdbcType="VARCHAR" />
+    <result column="times" property="times" jdbcType="TIMESTAMP" />
+    <result column="flag" property="flag" jdbcType="BIT" />
+    <result column="org_web" property="orgWeb" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    member_id, corporation_name, url, site_id, add_time, modify_time, logo, fax, enroll_id, 
+    deal_in_id, category_code, summary, picture_url, reg_number, help_id, en_name, accredit_number, 
+    status, icp, artificial_person, traffic_url, traffic_Info, deal_in_address, deal_in_Area_code, 
+    times, flag, org_web
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wangku.entity.MemberBasicExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from member_basic
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from member_basic
+    where member_id = #{memberId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from member_basic
+    where member_id = #{memberId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.wangku.entity.MemberBasicExample" >
+    delete from member_basic
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.wangku.entity.MemberBasic" >
+    insert into member_basic (member_id, corporation_name, url, 
+      site_id, add_time, modify_time, 
+      logo, fax, enroll_id, 
+      deal_in_id, category_code, summary, 
+      picture_url, reg_number, help_id, 
+      en_name, accredit_number, status, 
+      icp, artificial_person, traffic_url, 
+      traffic_Info, deal_in_address, deal_in_Area_code, 
+      times, flag, org_web)
+    values (#{memberId,jdbcType=BIGINT}, #{corporationName,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{siteId,jdbcType=INTEGER}, #{addTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{logo,jdbcType=VARCHAR}, #{fax,jdbcType=VARCHAR}, #{enrollId,jdbcType=VARCHAR}, 
+      #{dealInId,jdbcType=VARCHAR}, #{categoryCode,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, 
+      #{pictureUrl,jdbcType=VARCHAR}, #{regNumber,jdbcType=VARCHAR}, #{helpId,jdbcType=VARCHAR}, 
+      #{enName,jdbcType=VARCHAR}, #{accreditNumber,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{icp,jdbcType=VARCHAR}, #{artificialPerson,jdbcType=VARCHAR}, #{trafficUrl,jdbcType=VARCHAR}, 
+      #{trafficInfo,jdbcType=VARCHAR}, #{dealInAddress,jdbcType=VARCHAR}, #{dealInAreaCode,jdbcType=VARCHAR}, 
+      #{times,jdbcType=TIMESTAMP}, #{flag,jdbcType=BIT}, #{orgWeb,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wangku.entity.MemberBasic" >
+    insert into member_basic
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="corporationName != null" >
+        corporation_name,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="siteId != null" >
+        site_id,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="logo != null" >
+        logo,
+      </if>
+      <if test="fax != null" >
+        fax,
+      </if>
+      <if test="enrollId != null" >
+        enroll_id,
+      </if>
+      <if test="dealInId != null" >
+        deal_in_id,
+      </if>
+      <if test="categoryCode != null" >
+        category_code,
+      </if>
+      <if test="summary != null" >
+        summary,
+      </if>
+      <if test="pictureUrl != null" >
+        picture_url,
+      </if>
+      <if test="regNumber != null" >
+        reg_number,
+      </if>
+      <if test="helpId != null" >
+        help_id,
+      </if>
+      <if test="enName != null" >
+        en_name,
+      </if>
+      <if test="accreditNumber != null" >
+        accredit_number,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="icp != null" >
+        icp,
+      </if>
+      <if test="artificialPerson != null" >
+        artificial_person,
+      </if>
+      <if test="trafficUrl != null" >
+        traffic_url,
+      </if>
+      <if test="trafficInfo != null" >
+        traffic_Info,
+      </if>
+      <if test="dealInAddress != null" >
+        deal_in_address,
+      </if>
+      <if test="dealInAreaCode != null" >
+        deal_in_Area_code,
+      </if>
+      <if test="times != null" >
+        times,
+      </if>
+      <if test="flag != null" >
+        flag,
+      </if>
+      <if test="orgWeb != null" >
+        org_web,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="memberId != null" >
+        #{memberId,jdbcType=BIGINT},
+      </if>
+      <if test="corporationName != null" >
+        #{corporationName,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="siteId != null" >
+        #{siteId,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logo != null" >
+        #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="enrollId != null" >
+        #{enrollId,jdbcType=VARCHAR},
+      </if>
+      <if test="dealInId != null" >
+        #{dealInId,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryCode != null" >
+        #{categoryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null" >
+        #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="pictureUrl != null" >
+        #{pictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="regNumber != null" >
+        #{regNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="helpId != null" >
+        #{helpId,jdbcType=VARCHAR},
+      </if>
+      <if test="enName != null" >
+        #{enName,jdbcType=VARCHAR},
+      </if>
+      <if test="accreditNumber != null" >
+        #{accreditNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="icp != null" >
+        #{icp,jdbcType=VARCHAR},
+      </if>
+      <if test="artificialPerson != null" >
+        #{artificialPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="trafficUrl != null" >
+        #{trafficUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="trafficInfo != null" >
+        #{trafficInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="dealInAddress != null" >
+        #{dealInAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="dealInAreaCode != null" >
+        #{dealInAreaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="times != null" >
+        #{times,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=BIT},
+      </if>
+      <if test="orgWeb != null" >
+        #{orgWeb,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.wangku.entity.MemberBasicExample" resultType="java.lang.Integer" >
+    select count(*) from member_basic
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update member_basic
+    <set >
+      <if test="record.memberId != null" >
+        member_id = #{record.memberId,jdbcType=BIGINT},
+      </if>
+      <if test="record.corporationName != null" >
+        corporation_name = #{record.corporationName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.url != null" >
+        url = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.siteId != null" >
+        site_id = #{record.siteId,jdbcType=INTEGER},
+      </if>
+      <if test="record.addTime != null" >
+        add_time = #{record.addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyTime != null" >
+        modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.logo != null" >
+        logo = #{record.logo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fax != null" >
+        fax = #{record.fax,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enrollId != null" >
+        enroll_id = #{record.enrollId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dealInId != null" >
+        deal_in_id = #{record.dealInId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.categoryCode != null" >
+        category_code = #{record.categoryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.summary != null" >
+        summary = #{record.summary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pictureUrl != null" >
+        picture_url = #{record.pictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regNumber != null" >
+        reg_number = #{record.regNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.helpId != null" >
+        help_id = #{record.helpId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enName != null" >
+        en_name = #{record.enName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accreditNumber != null" >
+        accredit_number = #{record.accreditNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.icp != null" >
+        icp = #{record.icp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.artificialPerson != null" >
+        artificial_person = #{record.artificialPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.trafficUrl != null" >
+        traffic_url = #{record.trafficUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.trafficInfo != null" >
+        traffic_Info = #{record.trafficInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dealInAddress != null" >
+        deal_in_address = #{record.dealInAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dealInAreaCode != null" >
+        deal_in_Area_code = #{record.dealInAreaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.times != null" >
+        times = #{record.times,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.flag != null" >
+        flag = #{record.flag,jdbcType=BIT},
+      </if>
+      <if test="record.orgWeb != null" >
+        org_web = #{record.orgWeb,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update member_basic
+    set member_id = #{record.memberId,jdbcType=BIGINT},
+      corporation_name = #{record.corporationName,jdbcType=VARCHAR},
+      url = #{record.url,jdbcType=VARCHAR},
+      site_id = #{record.siteId,jdbcType=INTEGER},
+      add_time = #{record.addTime,jdbcType=TIMESTAMP},
+      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      logo = #{record.logo,jdbcType=VARCHAR},
+      fax = #{record.fax,jdbcType=VARCHAR},
+      enroll_id = #{record.enrollId,jdbcType=VARCHAR},
+      deal_in_id = #{record.dealInId,jdbcType=VARCHAR},
+      category_code = #{record.categoryCode,jdbcType=VARCHAR},
+      summary = #{record.summary,jdbcType=VARCHAR},
+      picture_url = #{record.pictureUrl,jdbcType=VARCHAR},
+      reg_number = #{record.regNumber,jdbcType=VARCHAR},
+      help_id = #{record.helpId,jdbcType=VARCHAR},
+      en_name = #{record.enName,jdbcType=VARCHAR},
+      accredit_number = #{record.accreditNumber,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      icp = #{record.icp,jdbcType=VARCHAR},
+      artificial_person = #{record.artificialPerson,jdbcType=VARCHAR},
+      traffic_url = #{record.trafficUrl,jdbcType=VARCHAR},
+      traffic_Info = #{record.trafficInfo,jdbcType=VARCHAR},
+      deal_in_address = #{record.dealInAddress,jdbcType=VARCHAR},
+      deal_in_Area_code = #{record.dealInAreaCode,jdbcType=VARCHAR},
+      times = #{record.times,jdbcType=TIMESTAMP},
+      flag = #{record.flag,jdbcType=BIT},
+      org_web = #{record.orgWeb,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangku.entity.MemberBasic" >
+    update member_basic
+    <set >
+      <if test="corporationName != null" >
+        corporation_name = #{corporationName,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="siteId != null" >
+        site_id = #{siteId,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logo != null" >
+        logo = #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        fax = #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="enrollId != null" >
+        enroll_id = #{enrollId,jdbcType=VARCHAR},
+      </if>
+      <if test="dealInId != null" >
+        deal_in_id = #{dealInId,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryCode != null" >
+        category_code = #{categoryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null" >
+        summary = #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="pictureUrl != null" >
+        picture_url = #{pictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="regNumber != null" >
+        reg_number = #{regNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="helpId != null" >
+        help_id = #{helpId,jdbcType=VARCHAR},
+      </if>
+      <if test="enName != null" >
+        en_name = #{enName,jdbcType=VARCHAR},
+      </if>
+      <if test="accreditNumber != null" >
+        accredit_number = #{accreditNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="icp != null" >
+        icp = #{icp,jdbcType=VARCHAR},
+      </if>
+      <if test="artificialPerson != null" >
+        artificial_person = #{artificialPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="trafficUrl != null" >
+        traffic_url = #{trafficUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="trafficInfo != null" >
+        traffic_Info = #{trafficInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="dealInAddress != null" >
+        deal_in_address = #{dealInAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="dealInAreaCode != null" >
+        deal_in_Area_code = #{dealInAreaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="times != null" >
+        times = #{times,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flag != null" >
+        flag = #{flag,jdbcType=BIT},
+      </if>
+      <if test="orgWeb != null" >
+        org_web = #{orgWeb,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where member_id = #{memberId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangku.entity.MemberBasic" >
+    update member_basic
+    set corporation_name = #{corporationName,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      site_id = #{siteId,jdbcType=INTEGER},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      logo = #{logo,jdbcType=VARCHAR},
+      fax = #{fax,jdbcType=VARCHAR},
+      enroll_id = #{enrollId,jdbcType=VARCHAR},
+      deal_in_id = #{dealInId,jdbcType=VARCHAR},
+      category_code = #{categoryCode,jdbcType=VARCHAR},
+      summary = #{summary,jdbcType=VARCHAR},
+      picture_url = #{pictureUrl,jdbcType=VARCHAR},
+      reg_number = #{regNumber,jdbcType=VARCHAR},
+      help_id = #{helpId,jdbcType=VARCHAR},
+      en_name = #{enName,jdbcType=VARCHAR},
+      accredit_number = #{accreditNumber,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      icp = #{icp,jdbcType=VARCHAR},
+      artificial_person = #{artificialPerson,jdbcType=VARCHAR},
+      traffic_url = #{trafficUrl,jdbcType=VARCHAR},
+      traffic_Info = #{trafficInfo,jdbcType=VARCHAR},
+      deal_in_address = #{dealInAddress,jdbcType=VARCHAR},
+      deal_in_Area_code = #{dealInAreaCode,jdbcType=VARCHAR},
+      times = #{times,jdbcType=TIMESTAMP},
+      flag = #{flag,jdbcType=BIT},
+      org_web = #{orgWeb,jdbcType=VARCHAR}
+    where member_id = #{memberId,jdbcType=BIGINT}
+  </update>
+</mapper>

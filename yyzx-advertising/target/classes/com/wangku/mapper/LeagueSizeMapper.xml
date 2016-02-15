@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangku.mapper.LeagueSizeMapper" >
+  <resultMap id="BaseResultMap" type="com.wangku.entity.LeagueSize" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="industry_id" property="industryId" jdbcType="BIGINT" />
+    <result column="industry_name" property="industryName" jdbcType="VARCHAR" />
+    <result column="type_id" property="typeId" jdbcType="BIGINT" />
+    <result column="type_name" property="typeName" jdbcType="VARCHAR" />
+    <result column="adv_size" property="advSize" jdbcType="VARCHAR" />
+    <result column="size_code" property="sizeCode" jdbcType="VARCHAR" />
+    <result column="link_status" property="linkStatus" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, industry_id, industry_name, type_id, type_name, adv_size, size_code, link_status, 
+    create_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wangku.entity.LeagueSizeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from league_size
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from league_size
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from league_size
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.wangku.entity.LeagueSizeExample" >
+    delete from league_size
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.wangku.entity.LeagueSize" >
+    insert into league_size (id, industry_id, industry_name, 
+      type_id, type_name, adv_size, 
+      size_code, link_status, create_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{industryId,jdbcType=BIGINT}, #{industryName,jdbcType=VARCHAR}, 
+      #{typeId,jdbcType=BIGINT}, #{typeName,jdbcType=VARCHAR}, #{advSize,jdbcType=VARCHAR}, 
+      #{sizeCode,jdbcType=VARCHAR}, #{linkStatus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wangku.entity.LeagueSize" >
+    insert into league_size
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="industryId != null" >
+        industry_id,
+      </if>
+      <if test="industryName != null" >
+        industry_name,
+      </if>
+      <if test="typeId != null" >
+        type_id,
+      </if>
+      <if test="typeName != null" >
+        type_name,
+      </if>
+      <if test="advSize != null" >
+        adv_size,
+      </if>
+      <if test="sizeCode != null" >
+        size_code,
+      </if>
+      <if test="linkStatus != null" >
+        link_status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="industryId != null" >
+        #{industryId,jdbcType=BIGINT},
+      </if>
+      <if test="industryName != null" >
+        #{industryName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeId != null" >
+        #{typeId,jdbcType=BIGINT},
+      </if>
+      <if test="typeName != null" >
+        #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="advSize != null" >
+        #{advSize,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeCode != null" >
+        #{sizeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="linkStatus != null" >
+        #{linkStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.wangku.entity.LeagueSizeExample" resultType="java.lang.Integer" >
+    select count(*) from league_size
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update league_size
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.industryId != null" >
+        industry_id = #{record.industryId,jdbcType=BIGINT},
+      </if>
+      <if test="record.industryName != null" >
+        industry_name = #{record.industryName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.typeId != null" >
+        type_id = #{record.typeId,jdbcType=BIGINT},
+      </if>
+      <if test="record.typeName != null" >
+        type_name = #{record.typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.advSize != null" >
+        adv_size = #{record.advSize,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sizeCode != null" >
+        size_code = #{record.sizeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkStatus != null" >
+        link_status = #{record.linkStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update league_size
+    set id = #{record.id,jdbcType=BIGINT},
+      industry_id = #{record.industryId,jdbcType=BIGINT},
+      industry_name = #{record.industryName,jdbcType=VARCHAR},
+      type_id = #{record.typeId,jdbcType=BIGINT},
+      type_name = #{record.typeName,jdbcType=VARCHAR},
+      adv_size = #{record.advSize,jdbcType=VARCHAR},
+      size_code = #{record.sizeCode,jdbcType=VARCHAR},
+      link_status = #{record.linkStatus,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangku.entity.LeagueSize" >
+    update league_size
+    <set >
+      <if test="industryId != null" >
+        industry_id = #{industryId,jdbcType=BIGINT},
+      </if>
+      <if test="industryName != null" >
+        industry_name = #{industryName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeId != null" >
+        type_id = #{typeId,jdbcType=BIGINT},
+      </if>
+      <if test="typeName != null" >
+        type_name = #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="advSize != null" >
+        adv_size = #{advSize,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeCode != null" >
+        size_code = #{sizeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="linkStatus != null" >
+        link_status = #{linkStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangku.entity.LeagueSize" >
+    update league_size
+    set industry_id = #{industryId,jdbcType=BIGINT},
+      industry_name = #{industryName,jdbcType=VARCHAR},
+      type_id = #{typeId,jdbcType=BIGINT},
+      type_name = #{typeName,jdbcType=VARCHAR},
+      adv_size = #{advSize,jdbcType=VARCHAR},
+      size_code = #{sizeCode,jdbcType=VARCHAR},
+      link_status = #{linkStatus,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <!-- 自己手动生成的resultMap -->
+  <resultMap type="com.wangku.entity.AdvTypeAndSize" id="BaseAdvTypeSizeMap">
+	<id column="advTypeId" property="advTypeId" jdbcType="BIGINT" />
+	<result column="advType" property="advType" jdbcType="VARCHAR" />
+	<collection property="leagueSizeList" ofType="com.wangku.entity.AdvLeagueSize">
+	    <result column="advSize" property="advSize" jdbcType="VARCHAR" />
+	    <result column="sizeCode" property="sizeCode" jdbcType="VARCHAR" />
+	    <result column="linkStatus" property="linkStatus" jdbcType="INTEGER" />
+	    <result column="onFlag" property="onFlag" jdbcType="INTEGER" />
+	</collection>
+ </resultMap>
+  <!-- 初始化类型尺寸信息(添加广告页面用) -->
+  <select id="queryInitTypeSize" resultMap="BaseAdvTypeSizeMap">
+  	select 
+	p.id advTypeId,
+	p.param_name advType,
+	
+	a.advSize,
+	a.sizeCode,
+	a.onFlag,
+	a.linkStatus
+  	from league_pram p
+	join (<include refid="all_init_type_size"/>) a
+	on p.id = a.typeId
+	ORDER BY p.id,a.sizeCode
+  </select>
+  <!-- 全部的尺寸信息sql块 -->
+  <sql id="all_init_type_size">
+	  select DISTINCT
+	  				type_id typeId,
+	  				adv_size advSize,
+					size_code sizeCode,
+					0 onFlag,
+					1 linkStatus 
+					from league_size
+  </sql>
+  
+  <!-- 传入一个行业ID查询广告类型尺寸列表 -->
+  <select id="queryTypeSizeByOneIndustryId" resultMap="BaseAdvTypeSizeMap">
+  	select 
+	p.id advTypeId,
+	p.param_name advType,
+	
+	a.advSize,
+	a.sizeCode,
+	a.onFlag,
+	a.linkStatus
+  	from league_pram p
+	join (<include refid="one_industry"></include>) a
+	on p.id = a.typeId
+	ORDER BY p.id,a.sizeCode
+  </select>
+  
+  <!-- 传入多个行业ID查询广告类型尺寸列表 -->
+  <select id="queryTypeSizeByIndustryIds" resultMap="BaseAdvTypeSizeMap">
+  	select 
+	p.id advTypeId,
+	p.param_name advType,
+	
+	a.advSize,
+	a.sizeCode,
+	a.onFlag,
+	a.linkStatus
+  	from league_pram p
+	join (<include refid="more_industry"></include>) a
+	on p.id = a.typeId
+	ORDER BY p.id,a.sizeCode
+  
+  </select>
+  <!-- 传入一个行业ID查询行业内尺寸 -->
+  <sql id="one_industry">
+  		select sp.typeId,sp.advSize,max(sp.onFlag) onFlag,sp.sizeCode,max(sp.linkStatus) linkStatus from (
+
+			select s.type_id typeId,s.adv_size advSize,s.size_code sizeCode,IFNULL(po.on_flag,0) onFlag,1 linkStatus
+			from league_size s
+			left join (select * from league_adv_info where on_flag = 2 and red_flag is null) po 
+			on po.size_id = s.id
+			where s.industry_id = #{industryId}
+			
+			UNION
+			
+			<include refid="all_type_size"></include>
+		 
+		) sp
+		
+		group by sizeCode
+  </sql>
+  
+  <!-- 传入多个行业ID查询行业内公共尺寸 -->
+  <sql id="more_industry">
+  select sp.typeId,sp.advSize,max(sp.onFlag) onFlag,sp.sizeCode,max(sp.linkStatus) linkStatus from (
+  
+		select s.type_id typeId,s.adv_size advSize,s.size_code sizeCode,max(IFNULL(po.on_flag,0)) onFlag,1 linkStatus
+		from league_size s
+		left join (select distinct size_id,on_flag from league_adv_info where on_flag = 2 and red_flag is null) po 
+		on po.size_id = s.id
+		where s.industry_id in 
+		<foreach collection="industryIdList" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+        </foreach>
+		GROUP BY sizeCode
+		HAVING count(s.industry_id) = #{iNum}
+		
+		
+		UNION
+		<include refid="all_type_size"></include>
+	) sp
+	group by sizeCode
+  </sql>
+  
+  <!-- 根据行业ID查询类型尺寸列表时查询全部尺寸 -->
+  <sql id="all_type_size">
+  select DISTINCT
+				  type_id typeId,
+				  adv_size advSize,
+				  size_code sizeCode,
+				  0 onFlag,
+				  0 linkStaus 
+				  from league_size
+  
+  </sql>
+  <!-- 批量添加尺寸数据 -->
+  <insert id="addBatch" parameterType="com.wangku.entity.LeagueSize">
+   insert into league_size (id, industry_id, industry_name, type_id, type_name, adv_size, size_code, 
+    create_time)
+    values 
+    <foreach collection="list" item="item" index="index" separator="," >  
+        (#{item.id},#{item.industryId},#{item.industryName},#{item.typeId},#{item.typeName},#{item.advSize},#{item.sizeCode},#{item.createTime})  
+    </foreach>
+  
+  </insert>
+  
+  
+  <!-- 广告管理-尺寸列表 -->
+  <select id="queryLeagueSizeList" resultType="com.wangku.entity.LeagueSizeListModel">
+  
+  	<!-- select CONCAT('leagueSize-',industry_id,'-',type_id) industryTypeCode,GROUP_CONCAT(adv_size) sizeListStr 
+  	from league_size
+	GROUP BY industry_id,type_id -->
+	select industry_id industryId,type_id typeId,trim(GROUP_CONCAT(adv_size SEPARATOR ', ')) sizeListStr 
+  	from league_size
+	GROUP BY industry_id,type_id
+  </select>
+  
+  
+  <!-- 根据行业ID和尺寸编码查询尺寸数据 -->
+  <select id="queryLeagueSizeByIndustryIdAndSizeCode" resultType="com.wangku.entity.LeagueSize">
+  
+  	select <include refid="Base_Column_List" /> from league_size 
+  	where industry_id = #{industryId} and size_code = #{sizeCode}
+  </select>
+  
+  <!-- 自定义SQL -->
+	<!-- 条件分页查询尺寸列表 -->
+	
+	<select id="queryAdvSizeListByKeywordPaged" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List"></include>
+		from league_size
+		where 1=1
+		<if test="industryId != null">
+			and industry_id = #{industryId}
+		</if>
+		<if test="typeId != null">
+			and type_id = #{typeId}
+		</if>
+		ORDER BY create_time DESC
+		limit #{offsetValue},#{pageSize}
+	</select>
+	
+	<!-- 条件分页查询尺寸列表的记录数 -->
+	<select id="queryAdvSizeListByKeywordPagedCount" resultType="java.lang.Integer">
+		select count(*) from league_size
+		where 1=1
+		<if test="industryId != null">
+			and industry_id = #{industryId}
+		</if>
+		<if test="typeId != null">
+			and type_id = #{typeId}
+		</if>
+	</select>
+  	<!-- 删除尺寸下相应的广告 -->
+  	<delete id="deleteAdvInfos">
+  		delete from league_adv_info where size_id = #{id}
+  	</delete>
+  	
+  	<select id="queryAdvStrList" resultType="java.lang.String">
+  		select distinct pic_url picUrl from league_adv_info where size_id = #{id}
+  	</select>
+  
+</mapper>

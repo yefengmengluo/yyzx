@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangku.mapper.CommentMapper">
+  <resultMap id="BaseResultMap" type="com.wangku.entity.Comment">
+    <id column="com_id" jdbcType="BIGINT" property="comId" />
+    <result column="vi_id" jdbcType="BIGINT" property="viId" />
+    <result column="com_content" jdbcType="VARCHAR" property="comContent" />
+    <result column="com_time" jdbcType="TIMESTAMP" property="comTime" />
+    <result column="com_ip" jdbcType="VARCHAR" property="comIp" />
+    <result column="com_static" jdbcType="INTEGER" property="comStatic" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="top" jdbcType="INTEGER" property="top" />
+    <result column="droop" jdbcType="INTEGER" property="droop" />
+    <result column="ip_name" jdbcType="VARCHAR" property="ipName" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    com_id, vi_id, com_content, com_time, com_ip, com_static, user_id, top, droop, ip_name
+  </sql>
+  <resultMap type="Comment" id="getAllCommentGroupByViName">
+  	<result column="vd_title" property="vdTitle"/>
+  	<result column="vi_id" property="viId"/>
+  	<result column="num" property="num"/>
+  </resultMap>
+  <!-- 1、超级管理员权限   ：分组查看品牌，按评论数降序排列   分页-->
+   <select id="selectAllVoteItemByCommentCountByPage" resultMap="getAllCommentGroupByViName" parameterType="map" >
+   select 
+    count(*) as num,vi_id,vd_title
+    from vote_comment com join vote_item_table item on com.vi_id=item.id
+    group by vi_id , vd_title  order by num desc limit #{offset},#{pageSize} 
+  </select>
+  <!--2、超级管理员权限   ：分组查看品牌，按评论数降序排列   -->
+  <select id="selectAllVoteItemByCommentCount" resultMap="getAllCommentGroupByViName" parameterType="map" >
+   select 
+    count(*) as num,vi_id,vd_title
+    from vote_comment com join vote_item_table item on com.vi_id=item.id
+    group by vi_id , vd_title  order by num desc 
+  </select>
+  <!-- 1、超级管理员权限：模糊 搜索品牌查   分页 -->
+  <select id="selectVoteItemLikeByUserByPage" resultMap="getAllCommentGroupByViName" parameterType="map" >
+    select 
+    count(*) as num,vi_id,vd_title
+    from vote_comment com join vote_item_table item on com.vi_id=item.id
+    group by vi_id , vd_title having vd_title like #{keyWord } order by num desc limit  #{offset},#{pageSize}
+  </select>
+  <!-- 2、超级管理员权限：模糊 搜索品牌查    不分页-->
+  <select id="selectVoteItemLikeByUser" resultMap="getAllCommentGroupByViName" parameterType="map" >
+    select 
+    count(*) as num,vi_id,vd_title
+    from vote_comment com join vote_item_table item on com.vi_id=item.id
+    group by vi_id , vd_title having vd_title like #{keyWord } order by num desc 
+  </select>
+   <!--1、模糊 搜索品牌查  分页-->
+  <select id="selectVoteItemLikeByPage" resultMap="getAllCommentGroupByViName" parameterType="map" >
+    select 
+    count(*) as num,vi_id,vd_title
+    from  vote_item_table item join vote_comment com on com.vi_id=item.id join vote_table ta on item.v_id=ta.id
+    where ta.user_id=#{userId} group by vi_id , vd_title having vd_title like #{keyWord} order by num desc limit  #{offset},#{pageSize}
+  </select>
+   <!--2、模糊 搜索品牌查  不分页 -->
+  <select id="selectVoteItemLike" resultMap="getAllCommentGroupByViName" parameterType="map" >
+    select 
+    count(*) as num,vi_id,vd_title
+    from  vote_item_table item join vote_comment com on com.vi_id=item.id join vote_table ta on item.v_id=ta.id
+    where ta.user_id=#{userId} group by vi_id , vd_title having vd_title like #{keyWord} order by num desc 
+  </select>
+  <!-- 1、普通管理员：分组查看一个主题下所有品牌，按评论数降序排列   分页-->
+   <select id="selectOneVoteTableAllVoteItemByCommentCountByPage" resultMap="getAllCommentGroupByViName" parameterType="map" >
+     select 
+    count(*) as num,vi_id,vd_title
+    from  vote_item_table item join vote_comment com on com.vi_id=item.id join vote_table ta on item.v_id=ta.id
+    where ta.user_id=#{userId} group by vi_id , vd_title  order by num desc limit  #{offset},#{pageSize}
+  </select>
+  <!-- 2、普通管理员：分组查看一个主题下所有品牌，按评论数降序排列   -->
+   <select id="selectOneVoteTableAllVoteItemByCommentCount" resultMap="getAllCommentGroupByViName" parameterType="map" >
+    select 
+    count(*) as num,vi_id,vd_title
+    from  vote_item_table item join vote_comment com on com.vi_id=item.id join vote_table ta on item.v_id=ta.id
+    where ta.user_id=#{userId} group by vi_id , vd_title  order by num desc
+  </select>
+  
+   <!-- 查看一个品牌下所有评论  分页   -->
+   <select id="selectAllCommentByViIdByPage" resultMap="BaseResultMap" parameterType="map" >
+    select 
+     <include refid="Base_Column_List" />
+    from   vote_comment 
+    where vi_id=#{viId}   order by com_time desc limit #{offset},#{pageSize}
+  </select>
+  <select id="selectByExample" parameterType="com.wangku.entity.CommentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from vote_comment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from vote_comment
+    where com_id = #{comId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from vote_comment
+    where com_id = #{comId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.wangku.entity.CommentExample">
+    delete from vote_comment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.wangku.entity.Comment">
+    insert into vote_comment (com_id, vi_id, com_content, 
+      com_time, com_ip, com_static, 
+      user_id, top, droop, 
+      ip_name)
+    values (#{comId,jdbcType=BIGINT}, #{viId,jdbcType=BIGINT}, #{comContent,jdbcType=VARCHAR}, 
+      #{comTime,jdbcType=TIMESTAMP}, #{comIp,jdbcType=VARCHAR}, #{comStatic,jdbcType=INTEGER}, 
+      #{userId,jdbcType=BIGINT}, #{top,jdbcType=INTEGER}, #{droop,jdbcType=INTEGER}, 
+      #{ipName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wangku.entity.Comment">
+    insert into vote_comment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="comId != null">
+        com_id,
+      </if>
+      <if test="viId != null">
+        vi_id,
+      </if>
+      <if test="comContent != null">
+        com_content,
+      </if>
+      <if test="comTime != null">
+        com_time,
+      </if>
+      <if test="comIp != null">
+        com_ip,
+      </if>
+      <if test="comStatic != null">
+        com_static,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="top != null">
+        top,
+      </if>
+      <if test="droop != null">
+        droop,
+      </if>
+      <if test="ipName != null">
+        ip_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="comId != null">
+        #{comId,jdbcType=BIGINT},
+      </if>
+      <if test="viId != null">
+        #{viId,jdbcType=BIGINT},
+      </if>
+      <if test="comContent != null">
+        #{comContent,jdbcType=VARCHAR},
+      </if>
+      <if test="comTime != null">
+        #{comTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="comIp != null">
+        #{comIp,jdbcType=VARCHAR},
+      </if>
+      <if test="comStatic != null">
+        #{comStatic,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="top != null">
+        #{top,jdbcType=INTEGER},
+      </if>
+      <if test="droop != null">
+        #{droop,jdbcType=INTEGER},
+      </if>
+      <if test="ipName != null">
+        #{ipName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.wangku.entity.CommentExample" resultType="java.lang.Integer">
+    select count(*) from vote_comment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update vote_comment
+    <set>
+      <if test="record.comId != null">
+        com_id = #{record.comId,jdbcType=BIGINT},
+      </if>
+      <if test="record.viId != null">
+        vi_id = #{record.viId,jdbcType=BIGINT},
+      </if>
+      <if test="record.comContent != null">
+        com_content = #{record.comContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comTime != null">
+        com_time = #{record.comTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.comIp != null">
+        com_ip = #{record.comIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comStatic != null">
+        com_static = #{record.comStatic,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.top != null">
+        top = #{record.top,jdbcType=INTEGER},
+      </if>
+      <if test="record.droop != null">
+        droop = #{record.droop,jdbcType=INTEGER},
+      </if>
+      <if test="record.ipName != null">
+        ip_name = #{record.ipName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update vote_comment
+    set com_id = #{record.comId,jdbcType=BIGINT},
+      vi_id = #{record.viId,jdbcType=BIGINT},
+      com_content = #{record.comContent,jdbcType=VARCHAR},
+      com_time = #{record.comTime,jdbcType=TIMESTAMP},
+      com_ip = #{record.comIp,jdbcType=VARCHAR},
+      com_static = #{record.comStatic,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      top = #{record.top,jdbcType=INTEGER},
+      droop = #{record.droop,jdbcType=INTEGER},
+      ip_name = #{record.ipName,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangku.entity.Comment">
+    update vote_comment
+    <set>
+      <if test="viId != null">
+        vi_id = #{viId,jdbcType=BIGINT},
+      </if>
+      <if test="comContent != null">
+        com_content = #{comContent,jdbcType=VARCHAR},
+      </if>
+      <if test="comTime != null">
+        com_time = #{comTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="comIp != null">
+        com_ip = #{comIp,jdbcType=VARCHAR},
+      </if>
+      <if test="comStatic != null">
+        com_static = #{comStatic,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="top != null">
+        top = #{top,jdbcType=INTEGER},
+      </if>
+      <if test="droop != null">
+        droop = #{droop,jdbcType=INTEGER},
+      </if>
+      <if test="ipName != null">
+        ip_name = #{ipName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where com_id = #{comId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangku.entity.Comment">
+    update vote_comment
+    set vi_id = #{viId,jdbcType=BIGINT},
+      com_content = #{comContent,jdbcType=VARCHAR},
+      com_time = #{comTime,jdbcType=TIMESTAMP},
+      com_ip = #{comIp,jdbcType=VARCHAR},
+      com_static = #{comStatic,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=BIGINT},
+      top = #{top,jdbcType=INTEGER},
+      droop = #{droop,jdbcType=INTEGER},
+      ip_name = #{ipName,jdbcType=VARCHAR}
+    where com_id = #{comId,jdbcType=BIGINT}
+  </update>
+ 
+</mapper>
